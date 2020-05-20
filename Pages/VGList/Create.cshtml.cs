@@ -18,7 +18,7 @@ namespace VGListRazor.Pages.VGList
             _db = db;
         }
 
-        [BindProperty]
+        [BindProperty]//
         public Game Game{get; set;}
         public void OnGet()
         {

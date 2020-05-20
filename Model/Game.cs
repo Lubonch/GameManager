@@ -12,7 +12,9 @@ namespace VGListRazor.Model
 
         [Required]
         public string Name { get; set; }
+        [Required]
         public string platform { get; set; }
+        [Required]
         public string publisher{ get; set; }
     }
 }
