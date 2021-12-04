@@ -23,6 +23,7 @@ namespace CrudWindowsFormsDataSet
         {
             InitializeComponent();
 
+            this.cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["CrudWindowsFormsDataSet.Properties.Settings.CrudWindowsFormConnectionString"].ConnectionString);
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
@@ -38,7 +39,6 @@ namespace CrudWindowsFormsDataSet
         {
             pwdbox.PasswordChar = '*';
             pwd2box.PasswordChar = '*';
-            cn = new SqlConnection(@"Data Source=DESKTOP-G66G3V0;Initial Catalog=CrudWindowsForm;Integrated Security=SSPI");
             cn.Open();
         }
 

@@ -23,6 +23,7 @@ namespace CrudWindowsFormsDataSet
             InitializeComponent();
             this.id = id;
 
+            this.cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["CrudWindowsFormsDataSet.Properties.Settings.CrudWindowsFormConnectionString"].ConnectionString);
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
@@ -50,7 +51,6 @@ namespace CrudWindowsFormsDataSet
 
         private void CreatePublisher_Load(object sender, EventArgs e)
         {
-            cn = new SqlConnection(@"Data Source=DESKTOP-G66G3V0;Initial Catalog=CrudWindowsForm;Integrated Security=SSPI");
             cn.Open();
             if(id != null) 
             {

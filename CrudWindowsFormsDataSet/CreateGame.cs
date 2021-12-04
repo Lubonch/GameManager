@@ -23,15 +23,15 @@ namespace CrudWindowsFormsDataSet
             InitializeComponent();
             this.id = id;
 
+            this.cn = new SqlConnection(System.Configuration.ConfigurationManager.ConnectionStrings["CrudWindowsFormsDataSet.Properties.Settings.CrudWindowsFormConnectionString"].ConnectionString);
             var materialSkinManager = MaterialSkinManager.Instance;
             materialSkinManager.AddFormToManage(this);
             materialSkinManager.Theme = MaterialSkinManager.Themes.DARK;
             materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
         }
 
-        private void CreateGame_Load(object sender, EventArgs e)//DESKTOP-G66G3V0
+        private void CreateGame_Load(object sender, EventArgs e)//localhost
         {
-            cn = new SqlConnection(@"Data Source=DESKTOP-G66G3V0;Initial Catalog=CrudWindowsForm;Integrated Security=SSPI");
             cn.Open();
             YeardateTimePicker.Format = DateTimePickerFormat.Custom;
             YeardateTimePicker.CustomFormat = "dd-MM-yyyy";
