@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oEDgaRZWLjruDsTq5l5ZZG5BhTVEHZojj+KazJ89CcopHWLv76KnKZB0tl+UCZeNdXVZHqEQ/tyuXwwGVzQa4w==",
+  "dgSpecHash": "VRNXtJ7jAiv1us2ki5Ylaw4ycnRSGCrv0TI0wwNiUJGjg8v3JiitW8FT+t+kNmc8Yy9PZAX4XdM2RlHGe8pFMw==",
   "success": true,
-  "projectFilePath": "/home/tendoucurien/repos/GameManagerWebAPI/GameManagerWebAPI.csproj",
+  "projectFilePath": "/home/tendoucurien/repos/GameManager/GameManagerWebAPI.csproj",
   "expectedPackageFiles": [
     "/home/tendoucurien/.nuget/packages/antlr3.runtime/3.5.1/antlr3.runtime.3.5.1.nupkg.sha512",
     "/home/tendoucurien/.nuget/packages/fluentnhibernate/3.2.1/fluentnhibernate.3.2.1.nupkg.sha512",

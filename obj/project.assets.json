@@ -10702,11 +10702,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/tendoucurien/repos/GameManagerWebAPI/GameManagerWebAPI.csproj",
+      "projectUniqueName": "/home/tendoucurien/repos/GameManager/GameManagerWebAPI.csproj",
       "projectName": "GameManagerWebAPI",
-      "projectPath": "/home/tendoucurien/repos/GameManagerWebAPI/GameManagerWebAPI.csproj",
+      "projectPath": "/home/tendoucurien/repos/GameManager/GameManagerWebAPI.csproj",
       "packagesPath": "/home/tendoucurien/.nuget/packages/",
-      "outputPath": "/home/tendoucurien/repos/GameManagerWebAPI/obj/",
+      "outputPath": "/home/tendoucurien/repos/GameManager/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/tendoucurien/.nuget/NuGet/NuGet.Config"
