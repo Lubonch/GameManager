@@ -10697,24 +10697,32 @@
     ]
   },
   "packageFolders": {
-    "/home/tendoucurien/.nuget/packages/": {}
+    "C:\\Users\\tendo\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/tendoucurien/repos/GameManager/GameManagerWebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\tendo\\repos\\GameManager\\GameManagerWebAPI.csproj",
       "projectName": "GameManagerWebAPI",
-      "projectPath": "/home/tendoucurien/repos/GameManager/GameManagerWebAPI.csproj",
-      "packagesPath": "/home/tendoucurien/.nuget/packages/",
-      "outputPath": "/home/tendoucurien/repos/GameManager/obj/",
+      "projectPath": "C:\\Users\\tendo\\repos\\GameManager\\GameManagerWebAPI.csproj",
+      "packagesPath": "C:\\Users\\tendo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\tendo\\repos\\GameManager\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "/home/tendoucurien/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\tendo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -10773,12 +10781,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[7.0.9, 7.0.9]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -10787,7 +10789,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/7.0.109/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
       }
     }
   }
