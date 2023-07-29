@@ -1,6 +1,9 @@
-﻿namespace GameManagerWebAPI.Repositories.Contracts
+﻿using GameManagerWebAPI.Domain;
+
+namespace GameManagerWebAPI.Repositories.Contracts
 {
-    public class IGenreRepository
+    public interface IGenreRepository
     {
+        public List<Genre> GetAllGenres();
     }
 }

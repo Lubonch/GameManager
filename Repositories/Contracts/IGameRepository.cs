@@ -1,6 +1,9 @@
-﻿namespace GameManagerWebAPI.Repositories.Contracts
+﻿using GameManagerWebAPI.Domain;
+
+namespace GameManagerWebAPI.Repositories.Contracts
 {
-    public class IGameRepository
+    public interface IGameRepository
     {
+        public List<Game> GetAllGames();
     }
 }

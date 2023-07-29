@@ -1,6 +1,9 @@
-﻿namespace GameManagerWebAPI.Repositories.Contracts
+﻿using GameManagerWebAPI.Domain;
+
+namespace GameManagerWebAPI.Repositories.Contracts
 {
-    public class IConsoleRepository
+    public interface IConsoleRepository
     {
+        public List<Domain.Console> GetAllconsoles();
     }
 }

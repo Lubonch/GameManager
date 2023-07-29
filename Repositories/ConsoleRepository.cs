@@ -8,6 +8,10 @@ namespace GameManagerWebAPI.Repositories
         public ConsoleRepository() 
         { 
         }
-        
+
+        public List<Domain.Console> GetAllconsoles()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
