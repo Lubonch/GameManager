@@ -1,6 +1,13 @@
-﻿namespace GameManagerWebAPI.Repositories
+﻿using GameManagerWebAPI.Domain;
+using GameManagerWebAPI.Repositories.Contracts;
+
+namespace GameManagerWebAPI.Repositories
 {
-    public class ConsoleRepository
+    public class ConsoleRepository : IConsoleRepository
     {
+        public ConsoleRepository() 
+        { 
+        }
+        
     }
 }

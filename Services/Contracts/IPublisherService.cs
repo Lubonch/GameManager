@@ -1,6 +1,9 @@
-﻿namespace GameManagerWebAPI.Services.Contracts
+﻿using GameManagerWebAPI.Domain;
+
+namespace GameManagerWebAPI.Services.Contracts
 {
-    public class IPublisherService
+    public interface IPublisherService
     {
+        public List<Publisher> GetAllPublishers();
     }
 }

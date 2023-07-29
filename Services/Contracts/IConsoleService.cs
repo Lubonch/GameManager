@@ -1,6 +1,7 @@
 ﻿namespace GameManagerWebAPI.Services.Contracts
 {
-    public class IConsoleService
+    public interface IConsoleService
     {
+        public List<Domain.Console> GetAllconsoles();
     }
 }

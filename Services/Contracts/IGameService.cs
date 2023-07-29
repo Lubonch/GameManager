@@ -1,6 +1,7 @@
 ﻿namespace GameManagerWebAPI.Services.Contracts
 {
-    public class IGameService
+    public interface IGameService
     {
+        public List<Domain.Game> GetAllGames();
     }
 }
