@@ -15,19 +15,17 @@ namespace GameManagerWebAPI.Services
         public List<Domain.Console> GetAllconsoles()
         {
             var consoleList = new List<Domain.Console>();
-            using (var session = NhibernateConfig.OpenSession())
-            {
-                consoleList = _consoleRepository.GetAllconsoles(session);
-            }
+            
+            consoleList = _consoleRepository.GetAllconsoles();
+            
             return consoleList;
         }
         public Domain.Console GetById(int id)
         {
             var consoleList = new Domain.Console();
-            using (var session = NhibernateConfig.OpenSession())
-            {
-                consoleList = session.Get<Domain.Console>(id);
-            }
+
+            consoleList = _consoleRepository.Get(id);
+            
             return consoleList;
         }
     }

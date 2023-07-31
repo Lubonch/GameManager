@@ -4,7 +4,7 @@ using GameManagerWebAPI.Configs;
 
 namespace GameManagerWebAPI.Repositories
 {
-    public class ConsoleRepository : IConsoleRepository
+    public class ConsoleRepository : NHRepository<Domain.Console>, IConsoleRepository
     {
 
         public ConsoleRepository()
@@ -12,9 +12,9 @@ namespace GameManagerWebAPI.Repositories
 
         }
 
-        public List<Domain.Console> GetAllconsoles(NHibernate.ISession session)
+        public List<Domain.Console> GetAllconsoles()
         {
-            return session.Query<Domain.Console>().ToList();
+            return Session.Query<Domain.Console>().ToList();
         }
     }
 }
