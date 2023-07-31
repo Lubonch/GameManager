@@ -2,11 +2,11 @@ namespace GameManagerWebAPI.Domain;
 
 public class WeatherForecast
 {
-    public DateOnly Date { get; set; }
+    public virtual DateOnly Date { get; set; }
 
-    public int TemperatureC { get; set; }
+    public virtual int TemperatureC { get; set; }
 
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public virtual int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
-    public string Summary { get; set; }
+    public virtual string Summary { get; set; }
 }

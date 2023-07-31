@@ -2,8 +2,8 @@
 {
     public class People
     {
-        public int Id { get; set; }
-        public string name { get; set; }
-        public int age { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string name { get; set; }
+        public virtual int age { get; set; }
     }
 }

@@ -4,6 +4,6 @@ namespace GameManagerWebAPI.Repositories.Contracts
 {
     public interface IConsoleRepository
     {
-        public List<Domain.Console> GetAllconsoles();
+        public List<Domain.Console> GetAllconsoles(NHibernate.ISession session);
     }
 }
