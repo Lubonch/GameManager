@@ -17,10 +17,19 @@ namespace GameManagerWebAPI.Controllers
             _consoleService = consoleService;
         }
 
-        [HttpGet(Name = "GetAllConsoles")]
+        [HttpGet]
+        [Route("~/GetAllConsoles/")]
         public IEnumerable<Domain.Console> GetAllConsoles()
         {
             return _consoleService.GetAllconsoles();
+        }
+
+        
+        [HttpGet]
+        [Route("~/GetConsoleById/{id}")]
+        public Domain.Console GetConsoleById(int id)
+        {
+            return _consoleService.GetById(id);
         }
     }
 }

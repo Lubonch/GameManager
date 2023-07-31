@@ -1,17 +1,20 @@
 ﻿using GameManagerWebAPI.Domain;
 using GameManagerWebAPI.Repositories.Contracts;
+using GameManagerWebAPI.Configs;
 
 namespace GameManagerWebAPI.Repositories
 {
-    public class ConsoleRepository : IConsoleRepository
+    public class ConsoleRepository : NHRepository<Domain.Console>, IConsoleRepository
     {
-        public ConsoleRepository() 
-        { 
+
+        public ConsoleRepository()
+        {
+
         }
 
         public List<Domain.Console> GetAllconsoles()
         {
-            throw new NotImplementedException();
+            return Session.Query<Domain.Console>().ToList();
         }
     }
 }

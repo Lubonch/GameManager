@@ -2,13 +2,13 @@
 {
     public class Game
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public DateTime Year { get; set; } 
-        public Publisher Publisher { get; set; }
-        public Console Console { get; set; }
-        public Genre Genre { get; set; }   
-        public int Quantity { get; set; }
-        public float Price { get; set; }
+        public virtual int Id { get; set; }
+        public virtual string Name { get; set; }
+        public virtual DateTime Year { get; set; }
+        public virtual Publisher Publisher { get; set; }
+        public virtual Console Console { get; set; }
+        public virtual Genre Genre { get; set; }
+        public virtual int Quantity { get; set; }
+        public virtual float Price { get; set; }
     }
 }

@@ -296,6 +296,7 @@ C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\System.Composition.Hosting.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\System.Composition.Runtime.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\System.Composition.TypedParts.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\System.Configuration.ConfigurationManager.dll
+C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\System.Data.SqlClient.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\System.Drawing.Common.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\System.Reflection.MetadataLoadContext.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\System.Security.Cryptography.ProtectedData.dll
@@ -441,6 +442,11 @@ C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\tr\Microsoft.CodeAnalysis.Work
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\win\lib\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\win-arm64\native\sni.dll
+C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\win-x64\native\sni.dll
+C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\win-x86\native\sni.dll
+C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\unix\lib\net6.0\System.Drawing.Common.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Drawing.Common.dll
 C:\Users\tendo\repos\GameManager\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
