@@ -24,7 +24,7 @@ namespace GameManagerWebAPI.Configs
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            Session.Delete(entity);
         }
 
         public void DeleteAll()

@@ -13,7 +13,7 @@ namespace GameManagerWebAPI.Configs.Contracts
         T Load(object id);
         T Merge(T entity);
         T Save(T entity);
-        T SaveOrUpdate(T entity);
+        void SaveOrUpdate(T entity);
         void Update(T entity);
     }
 }
