@@ -31,5 +31,11 @@ namespace GameManagerWebAPI.Controllers
         {
             return _consoleService.GetById(id);
         }
+        [HttpPost]
+        [Route("~/SaveOrUpdateConsole/")]
+        public bool SaveOrUpdateConsole(Domain.Console console)
+        {
+            return _consoleService.SaveOrUpdate(console);
+        }
     }
 }
