@@ -42,5 +42,28 @@ namespace GameManagerWebAPI.Services
             }
              return true;
         }
+        public bool Delete(int id)
+        {
+            var consoleList = new Domain.Console();
+            consoleList = _consoleRepository.Get(id);
+            try
+            {
+                using (NHibernate.ISession session = NhibernateConfig.OpenSession())
+                {
+                    using (ITransaction tx = session.BeginTransaction())
+                    {
+                        session.Delete(consoleList);
+                        tx.Commit();
+                    }
+                }
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            
+            return true;
+        }
     }
 }
