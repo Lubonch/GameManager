@@ -1,13 +1,14 @@
-﻿using GameManagerWebAPI.Domain;
+﻿using GameManagerWebAPI.Configs;
+using GameManagerWebAPI.Domain;
 using GameManagerWebAPI.Repositories.Contracts;
 
 namespace GameManagerWebAPI.Repositories
 {
-    public class GameRepository : IGameRepository
+    public class GameRepository : NHRepository<Game>, IGameRepository
     {
         public List<Game> GetAllGames()
         {
-            throw new NotImplementedException();
+            return Session.Query<Game>().ToList();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using GameManagerWebAPI.Domain;
+using GameManagerWebAPI.Repositories;
 using GameManagerWebAPI.Repositories.Contracts;
 using GameManagerWebAPI.Services.Contracts;
 
@@ -13,7 +14,11 @@ namespace GameManagerWebAPI.Services
         }
         public List<Game> GetAllGames()
         {
-            throw new NotImplementedException();
+            var gameList = new List<Game>();
+
+            gameList = _gameRepository.GetAllGames();
+
+            return gameList;
         }
     }
 }
