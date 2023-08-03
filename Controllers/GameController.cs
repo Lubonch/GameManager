@@ -1,4 +1,6 @@
 ﻿using GameManagerWebAPI.Domain;
+using GameManagerWebAPI.Services;
+using GameManagerWebAPI.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,28 +10,20 @@ namespace GameManagerWebAPI.Controllers
     [Route("[controller]")]
     public class GameController : Controller
     {
-        private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
         private readonly ILogger<GameController> _logger;
+        private IGameService _gameService;
 
-        public GameController(ILogger<GameController> logger)
+        public GameController(ILogger<GameController> logger, IGameService gameService)
         {
             _logger = logger;
+            _gameService = gameService;
         }
 
-        [HttpGet(Name = "GetWeatherForecastGame")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet]
+        [Route("~/GetAllGames/")]
+        public IEnumerable<Game> GetAllGames()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return _gameService.GetAllGames();
         }
     }
 }
