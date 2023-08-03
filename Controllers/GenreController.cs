@@ -34,9 +34,9 @@ namespace GameManagerWebAPI.Controllers
         }
         [HttpPost]
         [Route("~/SaveOrUpdateGenre/")]
-        public bool SaveOrUpdateConsole(Genre console)
+        public bool SaveOrUpdateGenre(Genre genre)
         {
-            return _genreService.SaveOrUpdate(console);
+            return _genreService.SaveOrUpdate(genre);
         }
         [HttpPost]
         [Route("~/DeleteGenreById/{id}")]
