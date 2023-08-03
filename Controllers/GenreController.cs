@@ -1,4 +1,5 @@
 ﻿using GameManagerWebAPI.Domain;
+using GameManagerWebAPI.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,28 +9,40 @@ namespace GameManagerWebAPI.Controllers
     [Route("[controller]")]
     public class GenreController : Controller
     {
-        private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
         private readonly ILogger<GenreController> _logger;
+        private IGenreService _genreService;
 
-        public GenreController(ILogger<GenreController> logger)
+        public GenreController(ILogger<GenreController> logger, IGenreService consoleService)
         {
             _logger = logger;
+            _genreService = consoleService;
         }
 
-        [HttpGet(Name = "GetWeatherForecastGenre")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet]
+        [Route("~/GetAllGenres/")]
+        public IEnumerable<Genre> GetAllGenres()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            return _genreService.GetAllGenres();
+        }
+
+
+        [HttpGet]
+        [Route("~/GetGenreById/{id}")]
+        public Genre GetGenreById(int id)
+        {
+            return _genreService.GetById(id);
+        }
+        [HttpPost]
+        [Route("~/SaveOrUpdateGenre/")]
+        public bool SaveOrUpdateGenre(Genre genre)
+        {
+            return _genreService.SaveOrUpdate(genre);
+        }
+        [HttpPost]
+        [Route("~/DeleteGenreById/{id}")]
+        public bool DeleteGenreById(int id)
+        {
+            return _genreService.Delete(id);
         }
     }
 }

@@ -25,5 +25,23 @@ namespace GameManagerWebAPI.Controllers
         {
             return _gameService.GetAllGames();
         }
+        [HttpGet]
+        [Route("~/GetGameById/{id}")]
+        public Game GetGameById(int id)
+        {
+            return _gameService.GetById(id);
+        }
+        [HttpPost]
+        [Route("~/SaveOrUpdateGame/")]
+        public bool SaveOrUpdateGame(Game game)
+        {
+            return _gameService.SaveOrUpdate(game);
+        }
+        [HttpPost]
+        [Route("~/DeleteGameById/{id}")]
+        public bool DeleteGameById(int id)
+        {
+            return _gameService.Delete(id);
+        }
     }
 }

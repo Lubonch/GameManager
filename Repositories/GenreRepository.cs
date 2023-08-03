@@ -1,14 +1,15 @@
-﻿using GameManagerWebAPI.Domain;
+﻿using GameManagerWebAPI.Configs;
+using GameManagerWebAPI.Domain;
 using GameManagerWebAPI.Repositories.Contracts;
 using GameManagerWebAPI.Services.Contracts;
 
 namespace GameManagerWebAPI.Repositories
 {
-    public class GenreRepository : IGenreRepository
+    public class GenreRepository : NHRepository<Genre>, IGenreRepository
     {
         public List<Genre> GetAllGenres()
         {
-            throw new NotImplementedException();
+            return Session.Query<Genre>().ToList();
         }
     }
 }
