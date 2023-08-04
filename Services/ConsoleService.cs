@@ -3,6 +3,8 @@ using GameManagerWebAPI.Configs.Contracts;
 using GameManagerWebAPI.Repositories.Contracts;
 using GameManagerWebAPI.Services.Contracts;
 using NHibernate;
+using System.Net;
+using System.Net.Http;
 
 namespace GameManagerWebAPI.Services
 {
@@ -15,23 +17,18 @@ namespace GameManagerWebAPI.Services
         }
         public List<Domain.Console> GetAllconsoles()
         {
-            var consoleList = new List<Domain.Console>();
-
-            consoleList = _consoleRepository.GetAllconsoles();
+            var consoleList = _consoleRepository.GetAllconsoles();
 
             return consoleList;
         }
         public Domain.Console GetById(int id)
         {
-            var consoleList = new Domain.Console();
-
-            consoleList = _consoleRepository.Get(id);
+            var consoleList = _consoleRepository.Get(id);
 
             return consoleList;
         }
-        public bool SaveOrUpdate(Domain.Console console)
+        public HttpResponseMessage SaveOrUpdate(Domain.Console console)
         {
-            var consoleList = new Domain.Console();
             using (NHibernate.ISession session = NhibernateConfig.OpenSession())
             {
                 using (ITransaction tx = session.BeginTransaction()) 
@@ -40,12 +37,11 @@ namespace GameManagerWebAPI.Services
                     tx.Commit();
                 }                    
             }
-             return true;
+             return new HttpResponseMessage(HttpStatusCode.OK);
         }
         public bool Delete(int id)
         {
-            var consoleList = new Domain.Console();
-            consoleList = _consoleRepository.Get(id);
+            var consoleList = _consoleRepository.Get(id);
             try
             {
                 using (NHibernate.ISession session = NhibernateConfig.OpenSession())
