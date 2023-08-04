@@ -1,6 +1,8 @@
-﻿using GameManagerWebAPI.Services.Contracts;
+﻿using System.Net.Http;
+using GameManagerWebAPI.Services.Contracts;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace GameManagerWebAPI.Controllers
 {
@@ -33,7 +35,7 @@ namespace GameManagerWebAPI.Controllers
         }
         [HttpPost]
         [Route("~/SaveOrUpdateConsole/")]
-        public bool SaveOrUpdateConsole(Domain.Console console)
+        public HttpResponseMessage SaveOrUpdateConsole(Domain.Console console)
         {
             return _consoleService.SaveOrUpdate(console);
         }
