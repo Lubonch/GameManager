@@ -33,13 +33,13 @@ namespace GameManagerWebAPI.Controllers
         }
         [HttpPost]
         [Route("~/SaveOrUpdateGame/")]
-        public bool SaveOrUpdateGame(Game game)
+        public HttpResponseMessage SaveOrUpdateGame(Game game)
         {
             return _gameService.SaveOrUpdate(game);
         }
         [HttpPost]
         [Route("~/DeleteGameById/{id}")]
-        public bool DeleteGameById(int id)
+        public HttpResponseMessage DeleteGameById(int id)
         {
             return _gameService.Delete(id);
         }

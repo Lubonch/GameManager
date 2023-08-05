@@ -39,7 +39,7 @@ namespace GameManagerWebAPI.Services
             }
              return new HttpResponseMessage(HttpStatusCode.OK);
         }
-        public bool Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
             var consoleList = _consoleRepository.Get(id);
             try
@@ -56,10 +56,10 @@ namespace GameManagerWebAPI.Services
             catch (Exception ex) 
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
-            
-            return true;
+
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

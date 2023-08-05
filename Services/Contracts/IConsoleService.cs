@@ -13,6 +13,6 @@ namespace GameManagerWebAPI.Services.Contracts
         public List<Domain.Console> GetAllconsoles();
         public Domain.Console GetById(int id);
         public HttpResponseMessage SaveOrUpdate(Domain.Console console);
-        public bool Delete(int id);
+        public HttpResponseMessage Delete(int id);
     }
 }

@@ -3,6 +3,7 @@ using GameManagerWebAPI.Domain;
 using GameManagerWebAPI.Repositories.Contracts;
 using GameManagerWebAPI.Services.Contracts;
 using NHibernate;
+using System.Net;
 
 namespace GameManagerWebAPI.Services
 {
@@ -29,7 +30,7 @@ namespace GameManagerWebAPI.Services
 
             return publisher;
         }
-        public bool SaveOrUpdate(Publisher publisher)
+        public HttpResponseMessage SaveOrUpdate(Publisher publisher)
         {
             using (NHibernate.ISession session = NhibernateConfig.OpenSession())
             {
@@ -39,9 +40,9 @@ namespace GameManagerWebAPI.Services
                     tx.Commit();
                 }
             }
-            return true;
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
-        public bool Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
             var publisher = new Publisher();
             publisher = _publisherRepository.Get(id);
@@ -59,10 +60,10 @@ namespace GameManagerWebAPI.Services
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
-                return false;
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
 
-            return true;
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }

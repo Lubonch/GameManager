@@ -6,8 +6,8 @@ namespace GameManagerWebAPI.Services.Contracts
     {
         public List<Game> GetAllGames();
         public Game GetById(int id);
-        public bool SaveOrUpdate(Game game);
-        public bool Delete(int id);
+        public HttpResponseMessage SaveOrUpdate(Game game);
+        public HttpResponseMessage Delete(int id);
 
 
     }

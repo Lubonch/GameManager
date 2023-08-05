@@ -6,7 +6,7 @@ namespace GameManagerWebAPI.Services.Contracts
     {
         public List<Publisher> GetAllPublishers();
         public Publisher GetById(int id);
-        public bool SaveOrUpdate(Publisher publisher);
-        public bool Delete(int id);
+        public HttpResponseMessage SaveOrUpdate(Publisher publisher);
+        public HttpResponseMessage Delete(int id);
     }
 }
