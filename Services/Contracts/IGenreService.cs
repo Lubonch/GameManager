@@ -6,7 +6,7 @@ namespace GameManagerWebAPI.Services.Contracts
     {
         public List<Genre> GetAllGenres();
         public Genre GetById(int id);
-        public bool SaveOrUpdate(Genre genre);
-        public bool Delete(int id);
+        public HttpResponseMessage SaveOrUpdate(Genre genre);
+        public HttpResponseMessage Delete(int id);
     }
 }

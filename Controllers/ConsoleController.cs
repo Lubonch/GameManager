@@ -41,7 +41,7 @@ namespace GameManagerWebAPI.Controllers
         }
         [HttpPost]
         [Route("~/DeleteConsoleById/{id}")]
-        public bool DeleteConsoleById(int id)
+        public HttpResponseMessage DeleteConsoleById(int id)
         {
             return _consoleService.Delete(id);
         }

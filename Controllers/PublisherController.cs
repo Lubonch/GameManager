@@ -34,13 +34,13 @@ namespace GameManagerWebAPI.Controllers
         }
         [HttpPost]
         [Route("~/SaveOrUpdatePublisher/")]
-        public bool SaveOrUpdatePublisher(Publisher console)
+        public HttpResponseMessage SaveOrUpdatePublisher(Publisher console)
         {
             return _publisherService.SaveOrUpdate(console);
         }
         [HttpPost]
         [Route("~/DeletePublisherById/{id}")]
-        public bool DeletePublisherById(int id)
+        public HttpResponseMessage DeletePublisherById(int id)
         {
             return _publisherService.Delete(id);
         }

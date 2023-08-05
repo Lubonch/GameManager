@@ -4,6 +4,7 @@ using GameManagerWebAPI.Repositories;
 using GameManagerWebAPI.Repositories.Contracts;
 using GameManagerWebAPI.Services.Contracts;
 using NHibernate;
+using System.Net;
 
 namespace GameManagerWebAPI.Services
 {
@@ -30,7 +31,7 @@ namespace GameManagerWebAPI.Services
 
             return genre;
         }
-        public bool SaveOrUpdate(Genre genre)
+        public HttpResponseMessage SaveOrUpdate(Genre genre)
         {
            using (NHibernate.ISession session = NhibernateConfig.OpenSession())
             {
@@ -40,9 +41,9 @@ namespace GameManagerWebAPI.Services
                     tx.Commit();
                 }
             }
-            return true;
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
-        public bool Delete(int id)
+        public HttpResponseMessage Delete(int id)
         {
             var genre = new Genre();
             genre = _genreRepository.Get(id);
@@ -60,10 +61,10 @@ namespace GameManagerWebAPI.Services
             catch (Exception ex)
             {
                 System.Console.WriteLine(ex.Message);
-                return false;
+                return new HttpResponseMessage(HttpStatusCode.InternalServerError);
             }
 
-            return true;
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }
     }
 }
