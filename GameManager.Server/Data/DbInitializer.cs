@@ -1,5 +1,6 @@
 using GameManager.Server.Data;
 using GameManager.Server.Models;
+using GameConsole = GameManager.Server.Models.GameConsole;
 
 namespace GameManager.Server.Data;
 
