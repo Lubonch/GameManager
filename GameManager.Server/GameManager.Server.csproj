@@ -28,4 +28,10 @@
     </ProjectReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="old\**" />
+    <Content Remove="old\**" />
+    <None Remove="old\**" />
+  </ItemGroup>
+
 </Project>

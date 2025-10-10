@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GameManager.Server.Models;
 
-public class Console
+public class GameConsole
 {
     [Key]
     public int Id { get; set; }
