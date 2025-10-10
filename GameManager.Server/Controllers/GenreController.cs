@@ -40,6 +40,18 @@ public class GenreController : ControllerBase
         return Ok();
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateGenre(int id, Genre genre)
+    {
+        if (id != genre.Id)
+        {
+            return BadRequest();
+        }
+
+        await _genreService.SaveOrUpdateAsync(genre);
+        return Ok();
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteGenre(int id)
     {

@@ -40,6 +40,18 @@ public class PeopleController : ControllerBase
         return Ok();
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdatePeople(int id, People people)
+    {
+        if (id != people.Id)
+        {
+            return BadRequest();
+        }
+
+        await _peopleService.SaveOrUpdateAsync(people);
+        return Ok();
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePeople(int id)
     {

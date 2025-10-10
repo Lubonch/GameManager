@@ -40,6 +40,18 @@ public class ConsoleController : ControllerBase
         return Ok();
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateConsole(int id, GameConsole console)
+    {
+        if (id != console.Id)
+        {
+            return BadRequest();
+        }
+
+        await _consoleService.SaveOrUpdateAsync(console);
+        return Ok();
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteConsole(int id)
     {

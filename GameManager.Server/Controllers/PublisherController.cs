@@ -40,6 +40,18 @@ public class PublisherController : ControllerBase
         return Ok();
     }
 
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdatePublisher(int id, Publisher publisher)
+    {
+        if (id != publisher.Id)
+        {
+            return BadRequest();
+        }
+
+        await _publisherService.SaveOrUpdateAsync(publisher);
+        return Ok();
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeletePublisher(int id)
     {
