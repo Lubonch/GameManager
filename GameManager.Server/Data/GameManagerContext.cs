@@ -19,16 +19,16 @@ public class GameManagerContext : DbContext
         modelBuilder.Entity<Game>()
             .HasOne(g => g.Publisher)
             .WithMany()
-            .HasForeignKey("IdPublisher");
+            .HasForeignKey(g => g.PublisherId);
 
         modelBuilder.Entity<Game>()
             .HasOne(g => g.Console)
             .WithMany()
-            .HasForeignKey("IdConsole");
+            .HasForeignKey(g => g.ConsoleId);
 
         modelBuilder.Entity<Game>()
             .HasOne(g => g.Genre)
             .WithMany()
-            .HasForeignKey("IdGenre");
+            .HasForeignKey(g => g.GenreId);
     }
 }
