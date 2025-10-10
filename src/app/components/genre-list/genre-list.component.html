@@ -1,0 +1,30 @@
+<div class="container">
+  <div class="header">
+    <h2>Genres</h2>
+    <button class="btn btn-primary" routerLink="/genres/new">Add New Genre</button>
+  </div>
+
+  <div class="error-message" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    Loading genres...
+  </div>
+
+  <div class="genres-grid" *ngIf="!loading && !error">
+    <div class="genre-card" *ngFor="let genre of genres">
+      <div class="genre-header">
+        <h3>{{ genre.name }}</h3>
+        <div class="genre-actions">
+          <button class="btn btn-secondary" [routerLink]="['/genres', 'edit', genre.id]">Edit</button>
+          <button class="btn btn-danger" (click)="onDeleteGenre(genre.id)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="no-genres" *ngIf="genres.length === 0">
+      <p>No genres found. <a routerLink="/genres/new">Add your first genre</a></p>
+    </div>
+  </div>
+</div>

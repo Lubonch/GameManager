@@ -7,12 +7,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameListComponent } from './components/game-list/game-list.component';
 import { GameFormComponent } from './components/game-form/game-form.component';
+import { PublisherListComponent } from './components/publisher-list/publisher-list.component';
+import { ConsoleListComponent } from './components/console-list/console-list.component';
+import { GenreListComponent } from './components/genre-list/genre-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     GameListComponent,
-    GameFormComponent
+    GameFormComponent,
+    PublisherListComponent,
+    ConsoleListComponent,
+    GenreListComponent
   ],
   imports: [
     BrowserModule,
