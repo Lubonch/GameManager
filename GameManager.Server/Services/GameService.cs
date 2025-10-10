@@ -15,7 +15,21 @@ public class GameService : IGameService
 
     public async Task<List<Game>> GetAllGamesAsync()
     {
-        return await _context.Games.Include(g => g.Publisher).Include(g => g.Console).Include(g => g.Genre).ToListAsync();
+        try
+        {
+            var games = await _context.Games
+                .Include(g => g.Publisher)
+                .Include(g => g.Console)
+                .Include(g => g.Genre)
+                .ToListAsync();
+            Console.WriteLine($"Retrieved {games.Count} games from database with relationships");
+            return games;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in GetAllGamesAsync: {ex.Message}");
+            throw;
+        }
     }
 
     public async Task<Game?> GetByIdAsync(int id)

@@ -12,5 +12,5 @@ public class GameDTO
     public int GenreId { get; set; }
     public string GenreName { get; set; }
     public int Quantity { get; set; }
-    public float Price { get; set; }
+    public double Price { get; set; }
 }

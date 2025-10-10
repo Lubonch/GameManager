@@ -19,5 +19,5 @@ public class Game
     public int GenreId { get; set; }
     public Genre Genre { get; set; }
     public int Quantity { get; set; }
-    public float Price { get; set; }
+    public double Price { get; set; }
 }

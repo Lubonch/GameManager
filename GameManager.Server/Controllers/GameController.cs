@@ -46,4 +46,16 @@ public class GameController : ControllerBase
         await _gameService.DeleteAsync(id);
         return Ok();
     }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateGame(int id, Game game)
+    {
+        if (id != game.Id)
+        {
+            return BadRequest();
+        }
+
+        await _gameService.SaveOrUpdateAsync(game);
+        return Ok();
+    }
 }
