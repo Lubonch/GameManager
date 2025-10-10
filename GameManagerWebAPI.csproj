@@ -22,5 +22,9 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="src\app\models\" />
+  </ItemGroup>
+
 
 </Project>
