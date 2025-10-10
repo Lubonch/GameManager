@@ -1,0 +1,34 @@
+# .NET Core
+bin/
+obj/
+*.user
+appsettings.Development.json
+*.log
+
+# Angular
+node_modules/
+dist/
+.angular/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+*.tmp
+
+# Database
+*.mdf
+*.ldf
+
+# Build
+*.exe
+*.dll
