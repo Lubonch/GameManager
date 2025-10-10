@@ -22,23 +22,6 @@ namespace GameManager.Server.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("GameManager.Server.Models.Console", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Console");
-                });
-
             modelBuilder.Entity("GameManager.Server.Models.Game", b =>
                 {
                     b.Property<int>("Id")
@@ -78,6 +61,23 @@ namespace GameManager.Server.Migrations
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Games");
+                });
+
+            modelBuilder.Entity("GameManager.Server.Models.GameConsole", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GameConsoles");
                 });
 
             modelBuilder.Entity("GameManager.Server.Models.Genre", b =>
@@ -157,7 +157,7 @@ namespace GameManager.Server.Migrations
 
             modelBuilder.Entity("GameManager.Server.Models.Game", b =>
                 {
-                    b.HasOne("GameManager.Server.Models.Console", "Console")
+                    b.HasOne("GameManager.Server.Models.GameConsole", "Console")
                         .WithMany()
                         .HasForeignKey("ConsoleId")
                         .OnDelete(DeleteBehavior.Cascade)

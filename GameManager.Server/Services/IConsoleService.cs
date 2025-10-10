@@ -1,12 +1,11 @@
 using GameManager.Server.Models;
-using Console = GameManager.Server.Models.Console;
 
 namespace GameManager.Server.Services;
 
 public interface IConsoleService
 {
-    Task<List<Console>> GetAllConsolesAsync();
-    Task<Console?> GetByIdAsync(int id);
-    Task SaveOrUpdateAsync(Console console);
+    Task<List<GameConsole>> GetAllConsolesAsync();
+    Task<GameConsole?> GetByIdAsync(int id);
+    Task SaveOrUpdateAsync(GameConsole console);
     Task DeleteAsync(int id);
 }

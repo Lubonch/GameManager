@@ -11,7 +11,7 @@ public class Game
     public int PublisherId { get; set; }
     public Publisher Publisher { get; set; }
     public int ConsoleId { get; set; }
-    public Console Console { get; set; }
+    public GameConsole Console { get; set; }
     public int GenreId { get; set; }
     public Genre Genre { get; set; }
     public int Quantity { get; set; }
