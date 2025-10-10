@@ -4,9 +4,10 @@ Una aplicación full-stack para gestionar una colección de juegos, con backend en
 
 ## Características
 
-- **Backend (.NET 8)**: API RESTful con controladores para gestionar juegos, consolas, géneros, publishers, personas y autenticación.
-- **Base de Datos**: SQL Server con Entity Framework Core, incluyendo migraciones automáticas.
-- **Frontend (Angular)**: Interfaz moderna con componentes standalone, integrada con la API del backend.
+- **Backend (.NET 8)**: API RESTful completa con controladores para gestionar juegos, consolas, géneros, publishers, personas y autenticación.
+- **Base de Datos**: SQL Server con Entity Framework Core, incluyendo migraciones automáticas y datos de ejemplo.
+- **Frontend (Angular)**: Interfaz moderna con componentes standalone, gestión completa de maestros y formularios con dropdowns.
+- **Sistema de Maestros**: Gestión CRUD completa para Publishers, Consolas, Géneros y Personas con navegación intuitiva.
 - **CORS**: Configurado para permitir conexiones entre frontend y backend.
 - **Swagger**: Documentación interactiva de la API.
 
@@ -86,12 +87,46 @@ Usa Visual Studio para ejecutar el proyecto completo, o configura un script para
 
 ## API Endpoints
 
-- **Games**: `/api/game` (GET, POST, PUT, DELETE)
-- **Consoles**: `/api/console` (GET, POST, PUT, DELETE)
-- **Genres**: `/api/genre` (GET, POST, PUT, DELETE)
-- **Publishers**: `/api/publisher` (GET, POST, PUT, DELETE)
-- **People**: `/api/people` (GET, POST, PUT, DELETE)
-- **LoginTable**: `/api/logintable` (GET, POST, PUT, DELETE)
+### Juegos
+- `GET /api/game` - Listar juegos con relaciones
+- `GET /api/game/{id}` - Obtener juego específico
+- `POST /api/game` - Crear nuevo juego
+- `PUT /api/game/{id}` - Actualizar juego
+- `DELETE /api/game/{id}` - Eliminar juego
+
+### Publishers
+- `GET /api/publisher` - Listar publishers
+- `GET /api/publisher/{id}` - Obtener publisher específico
+- `POST /api/publisher` - Crear nuevo publisher
+- `PUT /api/publisher/{id}` - Actualizar publisher
+- `DELETE /api/publisher/{id}` - Eliminar publisher
+
+### Consolas
+- `GET /api/console` - Listar consolas
+- `GET /api/console/{id}` - Obtener consola específica
+- `POST /api/console` - Crear nueva consola
+- `PUT /api/console/{id}` - Actualizar consola
+- `DELETE /api/console/{id}` - Eliminar consola
+
+### Géneros
+- `GET /api/genre` - Listar géneros
+- `GET /api/genre/{id}` - Obtener género específico
+- `POST /api/genre` - Crear nuevo género
+- `PUT /api/genre/{id}` - Actualizar género
+- `DELETE /api/genre/{id}` - Eliminar género
+
+### Personas
+- `GET /api/people` - Listar personas
+- `GET /api/people/{id}` - Obtener persona específica
+- `POST /api/people` - Crear nueva persona
+- `PUT /api/people/{id}` - Actualizar persona
+- `DELETE /api/people/{id}` - Eliminar persona
+
+### Autenticación
+- `GET /api/logintable` - Listar usuarios
+- `POST /api/logintable` - Crear nuevo usuario
+- `PUT /api/logintable/{id}` - Actualizar usuario
+- `DELETE /api/logintable/{id}` - Eliminar usuario
 
 Ejemplo de uso con curl:
 ```bash
@@ -141,11 +176,12 @@ Este proyecto fue modernizado desde código legacy:
 - **Eliminación de código obsoleto**: Repositorios, configuraciones NHibernate y archivos legacy.
 
 ### Elementos migrados desde la carpeta `old`:
-- ? **Modelos de dominio**: Game, Console (?GameConsole), Genre, Publisher, People, LoginTable
+- ? **Modelos de dominio**: Game, Console, Genre, Publisher, People, LoginTable (nombres respetados)
 - ? **Controladores**: Todos los controladores con endpoints RESTful modernos
 - ? **Servicios**: Lógica de negocio con async/await y EF Core
 - ? **DTOs**: Para todas las entidades con mapeo automático
 - ? **Inicialización de DB**: Datos de ejemplo automáticos
+- ? **Scripts SQL Legacy**: Recuperados en `GameManager.Server/database/scripts/` para referencia
+- ? **Nombres de Tablas**: Respetados los nombres originales (Console, Games, Genres, etc.)
 - ? **Configuraciones NHibernate**: No necesarias con EF Core
 - ? **Repositorios manuales**: Reemplazados por DbContext de EF Core
-- ? **Scripts SQL legacy**: Reemplazados por migraciones EF Core
