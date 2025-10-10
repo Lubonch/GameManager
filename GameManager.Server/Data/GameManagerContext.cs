@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using GameManager.Server.Models;
+using Console = GameManager.Server.Models.Console;
 
 namespace GameManager.Server.Data;
 
@@ -8,7 +9,7 @@ public class GameManagerContext : DbContext
     public GameManagerContext(DbContextOptions<GameManagerContext> options) : base(options) { }
 
     public DbSet<Game> Games { get; set; }
-    public DbSet<GameConsole> GameConsoles { get; set; }
+    public DbSet<Console> Consoles { get; set; }
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Publisher> Publishers { get; set; }
     public DbSet<People> Peoples { get; set; }

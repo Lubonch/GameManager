@@ -1,6 +1,7 @@
 using GameManager.Server.Models;
 using GameManager.Server.Services;
 using Microsoft.AspNetCore.Mvc;
+using Console = GameManager.Server.Models.Console;
 
 namespace GameManager.Server.Controllers;
 
@@ -34,7 +35,7 @@ public class ConsoleController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> SaveOrUpdateConsole(GameConsole console)
+    public async Task<IActionResult> SaveOrUpdateConsole(Console console)
     {
         await _consoleService.SaveOrUpdateAsync(console);
         return Ok();

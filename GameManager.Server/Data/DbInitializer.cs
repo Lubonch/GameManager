@@ -1,5 +1,6 @@
 using GameManager.Server.Data;
 using GameManager.Server.Models;
+using Console = GameManager.Server.Models.Console;
 
 namespace GameManager.Server.Data;
 
@@ -16,16 +17,16 @@ public static class DbInitializer
         }
 
         // Datos de ejemplo para Consolas
-        var consoles = new GameConsole[]
+        var consoles = new Console[]
         {
-            new GameConsole { Name = "PlayStation 5" },
-            new GameConsole { Name = "Xbox Series X" },
-            new GameConsole { Name = "Nintendo Switch" },
-            new GameConsole { Name = "PlayStation 4" },
-            new GameConsole { Name = "Xbox One" },
-            new GameConsole { Name = "PC" }
+            new Console { Name = "PlayStation 5" },
+            new Console { Name = "Xbox Series X" },
+            new Console { Name = "Nintendo Switch" },
+            new Console { Name = "PlayStation 4" },
+            new Console { Name = "Xbox One" },
+            new Console { Name = "PC" }
         };
-        context.GameConsoles.AddRange(consoles);
+        context.Consoles.AddRange(consoles);
         context.SaveChanges();
 
         // Datos de ejemplo para Géneros

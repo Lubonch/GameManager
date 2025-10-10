@@ -1,6 +1,7 @@
 using GameManager.Server.Data;
 using GameManager.Server.Models;
 using Microsoft.EntityFrameworkCore;
+using Console = GameManager.Server.Models.Console;
 
 namespace GameManager.Server.Services;
 
@@ -13,35 +14,35 @@ public class ConsoleService : IConsoleService
         _context = context;
     }
 
-    public async Task<List<GameConsole>> GetAllConsolesAsync()
+    public async Task<List<Console>> GetAllConsolesAsync()
     {
-        return await _context.GameConsoles.ToListAsync();
+        return await _context.Consoles.ToListAsync();
     }
 
-    public async Task<GameConsole?> GetByIdAsync(int id)
+    public async Task<Console?> GetByIdAsync(int id)
     {
-        return await _context.GameConsoles.FirstOrDefaultAsync(c => c.Id == id);
+        return await _context.Consoles.FirstOrDefaultAsync(c => c.Id == id);
     }
 
-    public async Task SaveOrUpdateAsync(GameConsole console)
+    public async Task SaveOrUpdateAsync(Console console)
     {
         if (console.Id == 0)
         {
-            _context.GameConsoles.Add(console);
+            _context.Consoles.Add(console);
         }
         else
         {
-            _context.GameConsoles.Update(console);
+            _context.Consoles.Update(console);
         }
         await _context.SaveChangesAsync();
     }
 
     public async Task DeleteAsync(int id)
     {
-        var console = await _context.GameConsoles.FindAsync(id);
+        var console = await _context.Consoles.FindAsync(id);
         if (console != null)
         {
-            _context.GameConsoles.Remove(console);
+            _context.Consoles.Remove(console);
             await _context.SaveChangesAsync();
         }
     }

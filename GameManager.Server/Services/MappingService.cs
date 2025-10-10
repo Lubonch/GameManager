@@ -1,5 +1,6 @@
 using GameManager.Server.DTOs;
 using GameManager.Server.Models;
+using Console = GameManager.Server.Models.Console;
 
 namespace GameManager.Server.Services;
 
@@ -38,7 +39,7 @@ public class MappingService : IMappingService
         };
     }
 
-    public ConsoleDTO ToDTO(GameConsole console)
+    public ConsoleDTO ToDTO(Console console)
     {
         return new ConsoleDTO
         {
@@ -47,9 +48,9 @@ public class MappingService : IMappingService
         };
     }
 
-    public GameConsole ToModel(ConsoleDTO consoleDTO)
+    public Console ToModel(ConsoleDTO consoleDTO)
     {
-        return new GameConsole
+        return new Console
         {
             Id = consoleDTO.Id,
             Name = consoleDTO.Name
