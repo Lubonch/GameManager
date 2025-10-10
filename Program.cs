@@ -3,6 +3,7 @@ using GameManagerWebAPI.Services;
 using GameManagerWebAPI.Services.Contracts;
 using log4net.Repository;
 using GameManagerWebAPI.Configs;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,17 +13,6 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-// Add CORS policy
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAngularDev", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyMethod()
-              .AllowAnyHeader();
-    });
-});
 
 CustomExtensions.AddInjectionServices(builder.Services);
 CustomExtensions.AddInjectionRepositories(builder.Services);
@@ -38,8 +28,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Use CORS
-app.UseCors("AllowAngularDev");
+app.UseStaticFiles();
+
+app.UseSpa(spa =>
+{
+    spa.Options.SourcePath = "client";
+    if (app.Environment.IsDevelopment())
+    {
+        spa.UseAngularCliServer(npmScript: "start");
+    }
+});
 
 app.UseAuthorization();
 
