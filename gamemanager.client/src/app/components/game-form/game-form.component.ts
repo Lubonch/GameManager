@@ -46,7 +46,7 @@ export class GameFormComponent implements OnInit {
   }
 
   loadGames() {
-    this.http.get<Game[]>('https://localhost:5001/api/game').subscribe(
+    this.http.get<Game[]>('https://localhost:7208/api/game').subscribe(
       (result) => {
         this.games = result;
       },
@@ -57,7 +57,7 @@ export class GameFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.http.post('https://localhost:5001/api/game', this.game).subscribe(
+    this.http.post('https://localhost:7208/api/game', this.game).subscribe(
       () => {
         this.loadGames();
         this.game = { id: 0, name: '', year: '', publisherId: 0, consoleId: 0, genreId: 0, quantity: 0, price: 0 };
