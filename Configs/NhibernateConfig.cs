@@ -24,12 +24,12 @@ namespace GameManagerWebAPI.Configs
         private static void InitializeSessionFactory()
         {
             IConfigurationRoot _configuration = new ConfigurationBuilder()
-            .SetBasePath("C:\\Users\\tendo\\repos\\GameManager")
+            .SetBasePath("D:\\repos\\GameManager")
             .AddJsonFile("appsettings.json")
             .Build();
 
             string connectionString = _configuration.GetConnectionString("GameManagerDatabase");
-            _sessionFactory = Fluently.Configure()			
+            _sessionFactory = Fluently.Configure()
                              .Database(MsSqlConfiguration.MsSql2012.ConnectionString(connectionString))
                              .Mappings(m => m.FluentMappings
                              .AddFromAssemblyOf<Program>())
