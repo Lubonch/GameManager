@@ -36,6 +36,11 @@ public class GenreController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> SaveOrUpdateGenre(Genre genre)
     {
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        genre.CreatedAt = DateTime.Now;
+        genre.UpdatedAt = DateTime.Now;
+        genre.CreatedById = currentUserId;
+        genre.UpdatedById = currentUserId;
         await _genreService.SaveOrUpdateAsync(genre);
         return Ok();
     }
@@ -48,7 +53,18 @@ public class GenreController : ControllerBase
             return BadRequest();
         }
 
-        await _genreService.SaveOrUpdateAsync(genre);
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        var existingGenre = await _genreService.GetByIdAsync(id);
+        if (existingGenre == null)
+        {
+            return NotFound();
+        }
+
+        existingGenre.Name = genre.Name;
+        existingGenre.UpdatedAt = DateTime.Now;
+        existingGenre.UpdatedById = currentUserId;
+
+        await _genreService.SaveOrUpdateAsync(existingGenre);
         return Ok();
     }
 

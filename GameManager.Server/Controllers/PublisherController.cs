@@ -36,6 +36,11 @@ public class PublisherController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> SaveOrUpdatePublisher(Publisher publisher)
     {
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        publisher.CreatedAt = DateTime.Now;
+        publisher.UpdatedAt = DateTime.Now;
+        publisher.CreatedById = currentUserId;
+        publisher.UpdatedById = currentUserId;
         await _publisherService.SaveOrUpdateAsync(publisher);
         return Ok();
     }
@@ -48,7 +53,18 @@ public class PublisherController : ControllerBase
             return BadRequest();
         }
 
-        await _publisherService.SaveOrUpdateAsync(publisher);
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        var existingPublisher = await _publisherService.GetByIdAsync(id);
+        if (existingPublisher == null)
+        {
+            return NotFound();
+        }
+
+        existingPublisher.Name = publisher.Name;
+        existingPublisher.UpdatedAt = DateTime.Now;
+        existingPublisher.UpdatedById = currentUserId;
+
+        await _publisherService.SaveOrUpdateAsync(existingPublisher);
         return Ok();
     }
 

@@ -34,8 +34,24 @@ public class GameController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> SaveOrUpdateGame(Game game)
+    public async Task<IActionResult> SaveOrUpdateGame(GameDto gameDto)
     {
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        var game = new Game
+        {
+            Id = gameDto.Id,
+            Name = gameDto.Name,
+            Year = gameDto.Year,
+            PublisherId = gameDto.PublisherId,
+            ConsoleId = gameDto.ConsoleId,
+            GenreId = gameDto.GenreId,
+            Quantity = gameDto.Quantity,
+            Price = gameDto.Price,
+            CreatedAt = DateTime.Now,
+            UpdatedAt = DateTime.Now,
+            CreatedById = currentUserId,
+            UpdatedById = currentUserId
+        };
         await _gameService.SaveOrUpdateAsync(game);
         return Ok();
     }
@@ -48,14 +64,31 @@ public class GameController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateGame(int id, Game game)
+    public async Task<IActionResult> UpdateGame(int id, GameDto gameDto)
     {
-        if (id != game.Id)
+        if (id != gameDto.Id)
         {
             return BadRequest();
         }
 
-        await _gameService.SaveOrUpdateAsync(game);
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        var existingGame = await _gameService.GetByIdAsync(id);
+        if (existingGame == null)
+        {
+            return NotFound();
+        }
+
+        existingGame.Name = gameDto.Name;
+        existingGame.Year = gameDto.Year;
+        existingGame.PublisherId = gameDto.PublisherId;
+        existingGame.ConsoleId = gameDto.ConsoleId;
+        existingGame.GenreId = gameDto.GenreId;
+        existingGame.Quantity = gameDto.Quantity;
+        existingGame.Price = gameDto.Price;
+        existingGame.UpdatedAt = DateTime.Now;
+        existingGame.UpdatedById = currentUserId;
+
+        await _gameService.SaveOrUpdateAsync(existingGame);
         return Ok();
     }
 }

@@ -36,6 +36,11 @@ public class ConsoleController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> SaveOrUpdateConsole(GameConsole console)
     {
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        console.CreatedAt = DateTime.Now;
+        console.UpdatedAt = DateTime.Now;
+        console.CreatedById = currentUserId;
+        console.UpdatedById = currentUserId;
         await _consoleService.SaveOrUpdateAsync(console);
         return Ok();
     }
@@ -48,7 +53,18 @@ public class ConsoleController : ControllerBase
             return BadRequest();
         }
 
-        await _consoleService.SaveOrUpdateAsync(console);
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        var existingConsole = await _consoleService.GetByIdAsync(id);
+        if (existingConsole == null)
+        {
+            return NotFound();
+        }
+
+        existingConsole.Name = console.Name;
+        existingConsole.UpdatedAt = DateTime.Now;
+        existingConsole.UpdatedById = currentUserId;
+
+        await _consoleService.SaveOrUpdateAsync(existingConsole);
         return Ok();
     }
 

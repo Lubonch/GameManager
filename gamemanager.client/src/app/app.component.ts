@@ -10,6 +10,6 @@ import { GameFormComponent } from './components/game-form/game-form.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'gamemanager.client';
+  title = 'Game Manager - Gestión de Juegos';
 }
 

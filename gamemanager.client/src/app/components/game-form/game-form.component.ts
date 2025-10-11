@@ -40,6 +40,20 @@ interface Genre {
     <div class="container">
       <header class="header">
         <h1>🎮 Game Manager</h1>
+        <div class="user-selector">
+          <label for="currentUser">Usuario actual:</label>
+          <select
+            id="currentUser"
+            [(ngModel)]="currentUserId"
+            name="currentUser"
+            class="form-input"
+          >
+            <option value="0">Seleccione usuario</option>
+            <option *ngFor="let person of people" [value]="person.id">
+              {{ person.name }}
+            </option>
+          </select>
+        </div>
         <nav class="nav">
           <button class="nav-btn active" (click)="currentView = 'list'">📋 Lista de Juegos</button>
           <button class="nav-btn" (click)="currentView = 'add'">➕ Agregar Juego</button>
@@ -248,7 +262,7 @@ interface Genre {
               <div class="master-icon">🎯</div>
               <h3>Géneros</h3>
               <p>Gestionar categorías de juegos</p>
-              <span class="master-count">{{ genres.length }} registrados</span>
+              <span class="master-count">{{ genres.length }} registros</span>
             </div>
 
             <div class="master-card" (click)="currentView = 'people'">
@@ -446,6 +460,20 @@ interface Genre {
         </div>
       </main>
     </div>
+
+    <!-- User Selection Modal -->
+    <div *ngIf="showUserSelection" class="modal-overlay">
+      <div class="modal-content" (click)="$event.stopPropagation()">
+        <h3>Seleccione el Usuario Actual</h3>
+        <select [(ngModel)]="selectedUserId" class="form-input">
+          <option value="0">Seleccione un usuario</option>
+          <option *ngFor="let person of people" [value]="person.id">{{ person.name }}</option>
+        </select>
+        <div class="form-actions">
+          <button (click)="selectUser()" class="btn btn-primary">Seleccionar</button>
+        </div>
+      </div>
+    </div>
   `,
   styles: [`
     .container {
@@ -468,6 +496,26 @@ interface Genre {
       margin: 0 0 15px 0;
       font-size: 2.5em;
       text-align: center;
+    }
+
+    .user-selector {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      justify-content: center;
+    }
+
+    .user-selector label {
+      font-weight: bold;
+      color: white;
+    }
+
+    .user-selector select {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      font-size: 14px;
     }
 
     .nav {
@@ -885,6 +933,11 @@ export class GameFormComponent implements OnInit {
     price: 0
   };
 
+  currentUserId: number = 0;
+  showUserSelection: boolean = false;
+  selectedUserId: number = 0;
+  isLoaded: boolean = false;
+
   // Master data forms
   showPublisherForm: boolean = false;
   showConsoleForm: boolean = false;
@@ -906,6 +959,16 @@ export class GameFormComponent implements OnInit {
   ngOnInit() {
     this.loadGames();
     this.loadMastersData();
+    setTimeout(() => {
+      if (this.isLoaded) {
+        const storedUserId = sessionStorage.getItem('currentUserId');
+        if (storedUserId) {
+          this.currentUserId = parseInt(storedUserId);
+        } else {
+          this.showUserSelection = true;
+        }
+      }
+    }, 200);
   }
 
   loadGames() {
@@ -955,6 +1018,7 @@ export class GameFormComponent implements OnInit {
     this.http.get<any[]>('https://localhost:7208/api/people').subscribe(
       (result) => {
         this.people = result;
+        this.isLoaded = true;
       },
       (error) => {
         console.error('Error loading people:', error);
@@ -992,8 +1056,21 @@ export class GameFormComponent implements OnInit {
   }
 
   onSubmit() {
+    const gameToSend = {
+      id: this.game.id,
+      name: this.game.name,
+      year: this.game.year,
+      publisherId: this.game.publisherId,
+      consoleId: this.game.consoleId,
+      genreId: this.game.genreId,
+      quantity: this.game.quantity,
+      price: this.game.price
+    };
+
+    const headers = { 'Current-User-Id': this.currentUserId.toString() };
+
     if (this.isEditing) {
-      this.http.put(`https://localhost:7208/api/game/${this.game.id}`, this.game).subscribe(
+      this.http.put(`https://localhost:7208/api/game/${this.game.id}`, gameToSend, { headers }).subscribe(
         () => {
           this.loadGames();
           this.resetForm();
@@ -1004,7 +1081,7 @@ export class GameFormComponent implements OnInit {
         }
       );
     } else {
-      this.http.post('https://localhost:7208/api/game', this.game).subscribe(
+      this.http.post('https://localhost:7208/api/game', gameToSend, { headers }).subscribe(
         () => {
           this.loadGames();
           this.resetForm();
@@ -1063,8 +1140,9 @@ export class GameFormComponent implements OnInit {
   }
 
   savePublisher() {
+    const headers = { 'Current-User-Id': this.currentUserId.toString() };
     if (this.editingPublisher) {
-      this.http.put(`https://localhost:7208/api/publisher/${this.newPublisher.id}`, this.newPublisher).subscribe(
+      this.http.put(`https://localhost:7208/api/publisher/${this.newPublisher.id}`, this.newPublisher, { headers }).subscribe(
         () => {
           this.loadMastersData();
           this.showPublisherForm = false;
@@ -1075,7 +1153,7 @@ export class GameFormComponent implements OnInit {
         }
       );
     } else {
-      this.http.post('https://localhost:7208/api/publisher', this.newPublisher).subscribe(
+      this.http.post('https://localhost:7208/api/publisher', this.newPublisher, { headers }).subscribe(
         () => {
           this.loadMastersData();
           this.showPublisherForm = false;
@@ -1109,8 +1187,9 @@ export class GameFormComponent implements OnInit {
   }
 
   saveConsole() {
+    const headers = { 'Current-User-Id': this.currentUserId.toString() };
     if (this.editingConsole) {
-      this.http.put(`https://localhost:7208/api/console/${this.newConsole.id}`, this.newConsole).subscribe(
+      this.http.put(`https://localhost:7208/api/console/${this.newConsole.id}`, this.newConsole, { headers }).subscribe(
         () => {
           this.loadMastersData();
           this.showConsoleForm = false;
@@ -1121,7 +1200,7 @@ export class GameFormComponent implements OnInit {
         }
       );
     } else {
-      this.http.post('https://localhost:7208/api/console', this.newConsole).subscribe(
+      this.http.post('https://localhost:7208/api/console', this.newConsole, { headers }).subscribe(
         () => {
           this.loadMastersData();
           this.showConsoleForm = false;
@@ -1155,8 +1234,9 @@ export class GameFormComponent implements OnInit {
   }
 
   saveGenre() {
+    const headers = { 'Current-User-Id': this.currentUserId.toString() };
     if (this.editingGenre) {
-      this.http.put(`https://localhost:7208/api/genre/${this.newGenre.id}`, this.newGenre).subscribe(
+      this.http.put(`https://localhost:7208/api/genre/${this.newGenre.id}`, this.newGenre, { headers }).subscribe(
         () => {
           this.loadMastersData();
           this.showGenreForm = false;
@@ -1167,7 +1247,7 @@ export class GameFormComponent implements OnInit {
         }
       );
     } else {
-      this.http.post('https://localhost:7208/api/genre', this.newGenre).subscribe(
+      this.http.post('https://localhost:7208/api/genre', this.newGenre, { headers }).subscribe(
         () => {
           this.loadMastersData();
           this.showGenreForm = false;
@@ -1201,8 +1281,9 @@ export class GameFormComponent implements OnInit {
   }
 
   savePeople() {
+    const headers = { 'Current-User-Id': this.currentUserId.toString() };
     if (this.editingPeople) {
-      this.http.put(`https://localhost:7208/api/people/${this.newPeople.id}`, this.newPeople).subscribe(
+      this.http.put(`https://localhost:7208/api/people/${this.newPeople.id}`, this.newPeople, { headers }).subscribe(
         () => {
           this.loadMastersData();
           this.showPeopleForm = false;
@@ -1213,7 +1294,7 @@ export class GameFormComponent implements OnInit {
         }
       );
     } else {
-      this.http.post('https://localhost:7208/api/people', this.newPeople).subscribe(
+      this.http.post('https://localhost:7208/api/people', this.newPeople, { headers }).subscribe(
         () => {
           this.loadMastersData();
           this.showPeopleForm = false;
@@ -1223,6 +1304,14 @@ export class GameFormComponent implements OnInit {
           console.error('Error adding people:', error);
         }
       );
+    }
+  }
+
+  selectUser() {
+    if (this.selectedUserId > 0) {
+      this.currentUserId = this.selectedUserId;
+      sessionStorage.setItem('currentUserId', this.selectedUserId.toString());
+      this.showUserSelection = false;
     }
   }
 }

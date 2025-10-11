@@ -36,6 +36,11 @@ public class PeopleController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> SaveOrUpdatePeople(People people)
     {
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        people.CreatedAt = DateTime.Now;
+        people.UpdatedAt = DateTime.Now;
+        people.CreatedById = currentUserId;
+        people.UpdatedById = currentUserId;
         await _peopleService.SaveOrUpdateAsync(people);
         return Ok();
     }
@@ -48,7 +53,19 @@ public class PeopleController : ControllerBase
             return BadRequest();
         }
 
-        await _peopleService.SaveOrUpdateAsync(people);
+        var currentUserId = int.Parse(Request.Headers["Current-User-Id"].ToString() ?? "0");
+        var existingPeople = await _peopleService.GetByIdAsync(id);
+        if (existingPeople == null)
+        {
+            return NotFound();
+        }
+
+        existingPeople.Name = people.Name;
+        existingPeople.Age = people.Age;
+        existingPeople.UpdatedAt = DateTime.Now;
+        existingPeople.UpdatedById = currentUserId;
+
+        await _peopleService.SaveOrUpdateAsync(existingPeople);
         return Ok();
     }
 
