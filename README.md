@@ -1,17 +1,17 @@
 # Game Manager
 
-Aplicación full-stack para gestión de videojuegos, desarrollada con .NET 8 (backend) y Angular 18 (frontend). Incluye auditoría completa, selección de usuario y gestión de maestros (publishers, consolas, géneros, personas).
+AplicaciÃ³n full-stack para gestiÃ³n de videojuegos, desarrollada con .NET 8 (backend) y Angular 18 (frontend). Incluye auditorÃ­a completa, selecciÃ³n de usuario y gestiÃ³n de maestros (publishers, consolas, gÃ©neros, personas).
 
-## Características
+## CaracterÃ­sticas
 
-- Gestión completa de videojuegos: CRUD con validaciones
-- Auditoría automática: Rastreo de creación/modificación con usuario y timestamps
-- Selección de usuario: Modal al iniciar para elegir el usuario actual
-- Gestión de maestros: Publishers, consolas, géneros y personas
+- GestiÃ³n completa de videojuegos: CRUD con validaciones
+- AuditorÃ­a automÃ¡tica: Rastreo de creaciÃ³n/modificaciÃ³n con usuario y timestamps
+- SelecciÃ³n de usuario: Modal al iniciar para elegir el usuario actual
+- GestiÃ³n de maestros: Publishers, consolas, gÃ©neros y personas
 - API RESTful: Endpoints modernos con EF Core
 - Frontend responsivo: Angular standalone con formularios reactivos
-- Base de datos SQL Server: Migraciones automáticas
-- Inicialización de datos: Datos de ejemplo incluidos
+- Base de datos SQL Server: Migraciones automÃ¡ticas
+- InicializaciÃ³n de datos: Datos de ejemplo incluidos
 
 ## Requisitos
 
@@ -20,7 +20,7 @@ Aplicación full-stack para gestión de videojuegos, desarrollada con .NET 8 (back
 - SQL Server (o LocalDB)
 - Angular CLI 18+
 
-## Instalación y Ejecución
+## InstalaciÃ³n y EjecuciÃ³n
 
 ### Backend
 ```bash
@@ -37,52 +37,52 @@ cd gamemanager.client
 npm install
 ng serve
 ```
-Aplicación disponible en: `http://localhost:4200`
+AplicaciÃ³n disponible en: `http://localhost:4200`
 
 ### Base de Datos
-- Las migraciones crean automáticamente las tablas.
+- Las migraciones crean automÃ¡ticamente las tablas.
 - Datos de ejemplo se inicializan en `DbInitializer.cs`.
 
 ## API Endpoints
 
-Todos los endpoints requieren el header `Current-User-Id` para auditoría (excepto GET).
+Todos los endpoints requieren el header `Current-User-Id` para auditorÃ­a (excepto GET).
 
 ### Juegos
 - `GET /api/game` - Listar juegos
-- `GET /api/game/{id}` - Obtener juego específico
+- `GET /api/game/{id}` - Obtener juego especÃ­fico
 - `POST /api/game` - Crear nuevo juego
 - `PUT /api/game/{id}` - Actualizar juego
 - `DELETE /api/game/{id}` - Eliminar juego
 
 ### Publishers
 - `GET /api/publisher` - Listar publishers
-- `GET /api/publisher/{id}` - Obtener publisher específico
+- `GET /api/publisher/{id}` - Obtener publisher especÃ­fico
 - `POST /api/publisher` - Crear nuevo publisher
 - `PUT /api/publisher/{id}` - Actualizar publisher
 - `DELETE /api/publisher/{id}` - Eliminar publisher
 
 ### Consolas
 - `GET /api/console` - Listar consolas
-- `GET /api/console/{id}` - Obtener consola específica
+- `GET /api/console/{id}` - Obtener consola especÃ­fica
 - `POST /api/console` - Crear nueva consola
 - `PUT /api/console/{id}` - Actualizar consola
 - `DELETE /api/console/{id}` - Eliminar consola
 
-### Géneros
-- `GET /api/genre` - Listar géneros
-- `GET /api/genre/{id}` - Obtener género específico
-- `POST /api/genre` - Crear nuevo género
-- `PUT /api/genre/{id}` - Actualizar género
-- `DELETE /api/genre/{id}` - Eliminar género
+### GÃ©neros
+- `GET /api/genre` - Listar gÃ©neros
+- `GET /api/genre/{id}` - Obtener gÃ©nero especÃ­fico
+- `POST /api/genre` - Crear nuevo gÃ©nero
+- `PUT /api/genre/{id}` - Actualizar gÃ©nero
+- `DELETE /api/genre/{id}` - Eliminar gÃ©nero
 
 ### Personas
 - `GET /api/people` - Listar personas
-- `GET /api/people/{id}` - Obtener persona específica
+- `GET /api/people/{id}` - Obtener persona especÃ­fica
 - `POST /api/people` - Crear nueva persona
 - `PUT /api/people/{id}` - Actualizar persona
 - `DELETE /api/people/{id}` - Eliminar persona
 
-### Autenticación
+### AutenticaciÃ³n
 - `GET /api/logintable` - Listar usuarios
 - `POST /api/logintable` - Crear nuevo usuario
 - `PUT /api/logintable/{id}` - Actualizar usuario
@@ -96,11 +96,11 @@ curl -X POST "https://localhost:7208/api/game" -H "Content-Type: application/jso
 
 ## Modelos de Datos
 
-Todos los modelos incluyen campos de auditoría:
-- `CreatedAt`: Fecha de creación
-- `UpdatedAt`: Fecha de última modificación
-- `CreatedById`: ID del usuario que creó
-- `UpdatedById`: ID del usuario que modificó
+Todos los modelos incluyen campos de auditorÃ­a:
+- `CreatedAt`: Fecha de creaciÃ³n
+- `UpdatedAt`: Fecha de Ãºltima modificaciÃ³n
+- `CreatedById`: ID del usuario que creÃ³
+- `UpdatedById`: ID del usuario que modificÃ³
 
 ### Game
 ```csharp
@@ -113,7 +113,7 @@ public class Game {
     public int GenreId { get; set; }
     public int Quantity { get; set; }
     public double Price { get; set; }
-    // Campos de auditoría...
+    // Campos de auditorÃ­a...
 }
 ```
 
@@ -123,8 +123,8 @@ public class Game {
 GameManager/
 ??? GameManager.Server/          # Backend .NET
 ?   ??? Controllers/             # Controladores API
-?   ??? Models/                  # Modelos de datos con auditoría
-?   ??? Services/                # Lógica de negocio
+?   ??? Models/                  # Modelos de datos con auditorÃ­a
+?   ??? Services/                # LÃ³gica de negocio
 ?   ??? Data/                    # Contexto EF Core
 ?   ??? Migrations/              # Migraciones DB
 ?   ??? DTOs/                    # DTOs para API
@@ -136,7 +136,7 @@ GameManager/
 ??? README.md                    # Este archivo
 ```
 
-## Contribución
+## ContribuciÃ³n
 
 1. Fork el proyecto.
 2. Crea una rama para tu feature (`git checkout -b feature/nueva-funcionalidad`).
@@ -146,30 +146,7 @@ GameManager/
 
 ## Licencia
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más detalles.
-
-## Notas de Migración
-
-Este proyecto fue modernizado desde código legacy:
-- Reemplazo de NHibernate por EF Core: Eliminadas configuraciones manuales de mapeo y repositorios.
-- Actualización a .NET 8 y Angular standalone: Componentes modernos y mejores prácticas.
-- Mejora de arquitectura: Inyección de dependencias, async/await, y separación de responsabilidades.
-- DTOs agregados: Para separar modelos de base de datos de respuestas API.
-- Auditoría completa: Campos automáticos en todos los modelos.
-- Selección de usuario: Modal al iniciar para elegir usuario actual.
-- Inicialización de datos: Script automático con datos de ejemplo.
-- Helpers y utilidades: Respuestas API estandarizadas y mapeo automático.
-- Eliminación de código obsoleto: Repositorios, configuraciones NHibernate y archivos legacy.
-
-### Elementos migrados:
-- Modelos de dominio: Game, Console, Genre, Publisher, People, LoginTable (nombres respetados)
-- Controladores: Todos los controladores con endpoints RESTful modernos
-- Servicios: Lógica de negocio con async/await y EF Core
-- DTOs: Para todas las entidades con mapeo automático
-- Auditoría: Campos `CreatedAt`, `UpdatedAt`, `CreatedById`, `UpdatedById` en todos los modelos
-- Selección de usuario: Modal en frontend con `sessionStorage`
-- Inicialización de DB: Datos de ejemplo automáticos
-- Scripts SQL Legacy: Recuperados en `databasebackup/` para referencia
+Este proyecto estÃ¡ bajo la Licencia MIT. Consulta el archivo LICENSE para mÃ¡s detalles.
 - Nombres de Tablas: Respetados los nombres originales (Console, Games, Genres, etc.)
 - Configuraciones NHibernate: No necesarias con EF Core
 - Repositorios manuales: Reemplazados por DbContext de EF Core- ? **Repositorios manuales**: Reemplazados por DbContext de EF Core
