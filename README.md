@@ -1,94 +1,54 @@
-# GameManager
+# Game Manager
 
-Una aplicación full-stack para gestionar una colección de juegos, con backend en .NET 8 y frontend en Angular moderno. Este proyecto fue migrado y modernizado desde código legacy, reemplazando NHibernate por Entity Framework Core y actualizando a las últimas prácticas de desarrollo.
+Aplicación full-stack para gestión de videojuegos, desarrollada con .NET 8 (backend) y Angular 18 (frontend). Incluye auditoría completa, selección de usuario y gestión de maestros (publishers, consolas, géneros, personas).
 
 ## Características
 
-- **Backend (.NET 8)**: API RESTful completa con controladores para gestionar juegos, consolas, géneros, publishers, personas y autenticación.
-- **Base de Datos**: SQL Server con Entity Framework Core, incluyendo migraciones automáticas y datos de ejemplo.
-- **Frontend (Angular)**: Interfaz moderna con componentes standalone, gestión completa de maestros y formularios con dropdowns.
-- **Sistema de Maestros**: Gestión CRUD completa para Publishers, Consolas, Géneros y Personas con navegación intuitiva.
-- **CORS**: Configurado para permitir conexiones entre frontend y backend.
-- **Swagger**: Documentación interactiva de la API.
+- ? **Gestión completa de videojuegos**: CRUD con validaciones
+- ? **Auditoría automática**: Rastreo de creación/modificación con usuario y timestamps
+- ? **Selección de usuario**: Modal al iniciar para elegir el usuario actual
+- ? **Gestión de maestros**: Publishers, consolas, géneros y personas
+- ? **API RESTful**: Endpoints modernos con EF Core
+- ? **Frontend responsivo**: Angular standalone con formularios reactivos
+- ? **Base de datos SQL Server**: Migraciones automáticas
+- ? **Inicialización de datos**: Datos de ejemplo incluidos
 
-## Tecnologías Utilizadas
+## Requisitos
 
-- **Backend**:
-  - .NET 8
-  - ASP.NET Core Web API
-  - Entity Framework Core 9.0
-  - SQL Server (LocalDB)
-  - Swashbuckle (Swagger)
-
-- **Frontend**:
-  - Angular 17+ (standalone components)
-  - TypeScript
-  - HttpClient para llamadas API
-
-- **Herramientas**:
-  - Git
-  - Visual Studio / VS Code
-
-## Instalación
-
-### Prerrequisitos
 - .NET 8 SDK
-- Node.js y npm
-- SQL Server (o LocalDB incluido en Visual Studio)
+- Node.js 18+
+- SQL Server (o LocalDB)
+- Angular CLI 18+
 
-### Pasos
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/Lubonch/GameManager.git
-   cd GameManager
-   ```
+## Instalación y Ejecución
 
-2. Restaura dependencias del backend:
-   ```bash
-   cd GameManager.Server
-   dotnet restore
-   ```
-
-3. Aplica migraciones de base de datos:
-   ```bash
-   dotnet ef database update
-   ```
-
-4. Restaura dependencias del frontend:
-   ```bash
-   cd ../gamemanager.client
-   npm install
-   ```
-
-5. Construye el proyecto:
-   ```bash
-   dotnet build ../GameManager.Server
-   ng build
-   ```
-
-## Uso
-
-### Ejecutar el Backend
+### Backend
 ```bash
 cd GameManager.Server
+dotnet restore
+dotnet ef database update  # Aplica migraciones
 dotnet run
 ```
-Accede a la API en `https://localhost:5001` y Swagger en `https://localhost:5001/swagger`.
+Servidor disponible en: `https://localhost:7208`
 
-### Ejecutar el Frontend
+### Frontend
 ```bash
 cd gamemanager.client
+npm install
 ng serve
 ```
-Accede a la aplicación en `http://localhost:4200`.
+Aplicación disponible en: `http://localhost:4200`
 
-### Ejecutar Ambos Simultáneamente
-Usa Visual Studio para ejecutar el proyecto completo, o configura un script para lanzar backend y frontend.
+### Base de Datos
+- Las migraciones crean automáticamente las tablas.
+- Datos de ejemplo se inicializan en `DbInitializer.cs`.
 
 ## API Endpoints
 
+Todos los endpoints requieren el header `Current-User-Id` para auditoría (excepto GET).
+
 ### Juegos
-- `GET /api/game` - Listar juegos con relaciones
+- `GET /api/game` - Listar juegos
 - `GET /api/game/{id}` - Obtener juego específico
 - `POST /api/game` - Crear nuevo juego
 - `PUT /api/game/{id}` - Actualizar juego
@@ -130,7 +90,31 @@ Usa Visual Studio para ejecutar el proyecto completo, o configura un script para
 
 Ejemplo de uso con curl:
 ```bash
-curl -X GET "https://localhost:5001/api/game" -H "accept: application/json"
+curl -X GET "https://localhost:7208/api/game" -H "accept: application/json"
+curl -X POST "https://localhost:7208/api/game" -H "Content-Type: application/json" -H "Current-User-Id: 1" -d '{"name":"Nuevo Juego","year":"2023-01-01","publisherId":1,"consoleId":1,"genreId":1,"quantity":10,"price":50.0}'
+```
+
+## Modelos de Datos
+
+Todos los modelos incluyen campos de auditoría:
+- `CreatedAt`: Fecha de creación
+- `UpdatedAt`: Fecha de última modificación
+- `CreatedById`: ID del usuario que creó
+- `UpdatedById`: ID del usuario que modificó
+
+### Game
+```csharp
+public class Game {
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public DateTime Year { get; set; }
+    public int PublisherId { get; set; }
+    public int ConsoleId { get; set; }
+    public int GenreId { get; set; }
+    public int Quantity { get; set; }
+    public double Price { get; set; }
+    // Campos de auditoría...
+}
 ```
 
 ## Estructura del Proyecto
@@ -139,16 +123,17 @@ curl -X GET "https://localhost:5001/api/game" -H "accept: application/json"
 GameManager/
 ??? GameManager.Server/          # Backend .NET
 ?   ??? Controllers/             # Controladores API
-?   ??? Models/                  # Modelos de datos
+?   ??? Models/                  # Modelos de datos con auditoría
 ?   ??? Services/                # Lógica de negocio
 ?   ??? Data/                    # Contexto EF Core
 ?   ??? Migrations/              # Migraciones DB
+?   ??? DTOs/                    # DTOs para API
 ??? gamemanager.client/          # Frontend Angular
 ?   ??? src/app/
-?   ?   ??? components/          # Componentes
-?   ?   ??? app.component.ts     # Componente principal
-?   ??? angular.json
-??? .gitignore                   # Archivos ignorados
+?       ??? components/          # Componentes
+?       ??? app.component.ts     # Componente principal
+??? databasebackup/              # Backups SQL
+??? old/                         # Código legacy (eliminado)
 ??? README.md                    # Este archivo
 ```
 
@@ -171,6 +156,8 @@ Este proyecto fue modernizado desde código legacy:
 - **Actualización a .NET 8 y Angular standalone**: Componentes modernos y mejores prácticas.
 - **Mejora de arquitectura**: Inyección de dependencias, async/await, y separación de responsabilidades.
 - **DTOs agregados**: Para separar modelos de base de datos de respuestas API.
+- **Auditoría completa**: Campos automáticos en todos los modelos.
+- **Selección de usuario**: Modal al iniciar para elegir usuario actual.
 - **Inicialización de datos**: Script automático con datos de ejemplo.
 - **Helpers y utilidades**: Respuestas API estandarizadas y mapeo automático.
 - **Eliminación de código obsoleto**: Repositorios, configuraciones NHibernate y archivos legacy.
@@ -180,8 +167,10 @@ Este proyecto fue modernizado desde código legacy:
 - ? **Controladores**: Todos los controladores con endpoints RESTful modernos
 - ? **Servicios**: Lógica de negocio con async/await y EF Core
 - ? **DTOs**: Para todas las entidades con mapeo automático
+- ? **Auditoría**: Campos `CreatedAt`, `UpdatedAt`, `CreatedById`, `UpdatedById` en todos los modelos
+- ? **Selección de usuario**: Modal en frontend con `sessionStorage`
 - ? **Inicialización de DB**: Datos de ejemplo automáticos
-- ? **Scripts SQL Legacy**: Recuperados en `GameManager.Server/database/scripts/` para referencia
+- ? **Scripts SQL Legacy**: Recuperados en `databasebackup/` para referencia
 - ? **Nombres de Tablas**: Respetados los nombres originales (Console, Games, Genres, etc.)
 - ? **Configuraciones NHibernate**: No necesarias con EF Core
 - ? **Repositorios manuales**: Reemplazados por DbContext de EF Core
