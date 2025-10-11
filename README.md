@@ -4,14 +4,14 @@ Aplicación full-stack para gestión de videojuegos, desarrollada con .NET 8 (back
 
 ## Características
 
-- ? **Gestión completa de videojuegos**: CRUD con validaciones
-- ? **Auditoría automática**: Rastreo de creación/modificación con usuario y timestamps
-- ? **Selección de usuario**: Modal al iniciar para elegir el usuario actual
-- ? **Gestión de maestros**: Publishers, consolas, géneros y personas
-- ? **API RESTful**: Endpoints modernos con EF Core
-- ? **Frontend responsivo**: Angular standalone con formularios reactivos
-- ? **Base de datos SQL Server**: Migraciones automáticas
-- ? **Inicialización de datos**: Datos de ejemplo incluidos
+- Gestión completa de videojuegos: CRUD con validaciones
+- Auditoría automática: Rastreo de creación/modificación con usuario y timestamps
+- Selección de usuario: Modal al iniciar para elegir el usuario actual
+- Gestión de maestros: Publishers, consolas, géneros y personas
+- API RESTful: Endpoints modernos con EF Core
+- Frontend responsivo: Angular standalone con formularios reactivos
+- Base de datos SQL Server: Migraciones automáticas
+- Inicialización de datos: Datos de ejemplo incluidos
 
 ## Requisitos
 
@@ -133,7 +133,6 @@ GameManager/
 ?       ??? components/          # Componentes
 ?       ??? app.component.ts     # Componente principal
 ??? databasebackup/              # Backups SQL
-??? old/                         # Código legacy (eliminado)
 ??? README.md                    # Este archivo
 ```
 
@@ -152,25 +151,25 @@ Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para más de
 ## Notas de Migración
 
 Este proyecto fue modernizado desde código legacy:
-- **Reemplazo de NHibernate por EF Core**: Eliminadas configuraciones manuales de mapeo y repositorios.
-- **Actualización a .NET 8 y Angular standalone**: Componentes modernos y mejores prácticas.
-- **Mejora de arquitectura**: Inyección de dependencias, async/await, y separación de responsabilidades.
-- **DTOs agregados**: Para separar modelos de base de datos de respuestas API.
-- **Auditoría completa**: Campos automáticos en todos los modelos.
-- **Selección de usuario**: Modal al iniciar para elegir usuario actual.
-- **Inicialización de datos**: Script automático con datos de ejemplo.
-- **Helpers y utilidades**: Respuestas API estandarizadas y mapeo automático.
-- **Eliminación de código obsoleto**: Repositorios, configuraciones NHibernate y archivos legacy.
+- Reemplazo de NHibernate por EF Core: Eliminadas configuraciones manuales de mapeo y repositorios.
+- Actualización a .NET 8 y Angular standalone: Componentes modernos y mejores prácticas.
+- Mejora de arquitectura: Inyección de dependencias, async/await, y separación de responsabilidades.
+- DTOs agregados: Para separar modelos de base de datos de respuestas API.
+- Auditoría completa: Campos automáticos en todos los modelos.
+- Selección de usuario: Modal al iniciar para elegir usuario actual.
+- Inicialización de datos: Script automático con datos de ejemplo.
+- Helpers y utilidades: Respuestas API estandarizadas y mapeo automático.
+- Eliminación de código obsoleto: Repositorios, configuraciones NHibernate y archivos legacy.
 
-### Elementos migrados desde la carpeta `old`:
-- ? **Modelos de dominio**: Game, Console, Genre, Publisher, People, LoginTable (nombres respetados)
-- ? **Controladores**: Todos los controladores con endpoints RESTful modernos
-- ? **Servicios**: Lógica de negocio con async/await y EF Core
-- ? **DTOs**: Para todas las entidades con mapeo automático
-- ? **Auditoría**: Campos `CreatedAt`, `UpdatedAt`, `CreatedById`, `UpdatedById` en todos los modelos
-- ? **Selección de usuario**: Modal en frontend con `sessionStorage`
-- ? **Inicialización de DB**: Datos de ejemplo automáticos
-- ? **Scripts SQL Legacy**: Recuperados en `databasebackup/` para referencia
-- ? **Nombres de Tablas**: Respetados los nombres originales (Console, Games, Genres, etc.)
-- ? **Configuraciones NHibernate**: No necesarias con EF Core
-- ? **Repositorios manuales**: Reemplazados por DbContext de EF Core
+### Elementos migrados:
+- Modelos de dominio: Game, Console, Genre, Publisher, People, LoginTable (nombres respetados)
+- Controladores: Todos los controladores con endpoints RESTful modernos
+- Servicios: Lógica de negocio con async/await y EF Core
+- DTOs: Para todas las entidades con mapeo automático
+- Auditoría: Campos `CreatedAt`, `UpdatedAt`, `CreatedById`, `UpdatedById` en todos los modelos
+- Selección de usuario: Modal en frontend con `sessionStorage`
+- Inicialización de DB: Datos de ejemplo automáticos
+- Scripts SQL Legacy: Recuperados en `databasebackup/` para referencia
+- Nombres de Tablas: Respetados los nombres originales (Console, Games, Genres, etc.)
+- Configuraciones NHibernate: No necesarias con EF Core
+- Repositorios manuales: Reemplazados por DbContext de EF Core- ? **Repositorios manuales**: Reemplazados por DbContext de EF Core
