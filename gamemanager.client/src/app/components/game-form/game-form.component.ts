@@ -17,6 +17,21 @@ interface Game {
   price: number;
 }
 
+interface Publisher {
+  id: number;
+  name: string;
+}
+
+interface Console {
+  id: number;
+  name: string;
+}
+
+interface Genre {
+  id: number;
+  name: string;
+}
+
 @Component({
   selector: 'app-game-form',
   standalone: true,
@@ -28,6 +43,7 @@ interface Game {
         <nav class="nav">
           <button class="nav-btn active" (click)="currentView = 'list'">📋 Lista de Juegos</button>
           <button class="nav-btn" (click)="currentView = 'add'">➕ Agregar Juego</button>
+          <button class="nav-btn" (click)="currentView = 'masters'">⚙️ Maestros</button>
         </nav>
       </header>
 
@@ -120,42 +136,51 @@ interface Game {
 
             <div class="form-row">
               <div class="form-group">
-                <label for="publisherId">Publisher ID:</label>
-                <input
+                <label for="publisherId">Publisher:</label>
+                <select
                   id="publisherId"
-                  type="number"
                   [(ngModel)]="game.publisherId"
                   name="publisherId"
                   required
-                  placeholder="ID del publisher"
                   class="form-input"
                 >
+                  <option value="">Seleccione un Publisher</option>
+                  <option *ngFor="let publisher of publishers" [value]="publisher.id">
+                    {{ publisher.name }}
+                  </option>
+                </select>
               </div>
 
               <div class="form-group">
-                <label for="consoleId">Console ID:</label>
-                <input
+                <label for="consoleId">Consola:</label>
+                <select
                   id="consoleId"
-                  type="number"
                   [(ngModel)]="game.consoleId"
                   name="consoleId"
                   required
-                  placeholder="ID de la consola"
                   class="form-input"
                 >
+                  <option value="">Seleccione una Consola</option>
+                  <option *ngFor="let console of consoles" [value]="console.id">
+                    {{ console.name }}
+                  </option>
+                </select>
               </div>
 
               <div class="form-group">
-                <label for="genreId">Genre ID:</label>
-                <input
+                <label for="genreId">Género:</label>
+                <select
                   id="genreId"
-                  type="number"
                   [(ngModel)]="game.genreId"
                   name="genreId"
                   required
-                  placeholder="ID del género"
                   class="form-input"
                 >
+                  <option value="">Seleccione un Género</option>
+                  <option *ngFor="let genre of genres" [value]="genre.id">
+                    {{ genre.name }}
+                  </option>
+                </select>
               </div>
             </div>
 
@@ -200,6 +225,225 @@ interface Game {
             </div>
           </form>
         </div>
+
+        <!-- Menú de Maestros -->
+        <div *ngIf="currentView === 'masters'" class="masters-menu">
+          <h2>⚙️ Gestión de Maestros</h2>
+          <div class="masters-grid">
+            <div class="master-card" (click)="currentView = 'publishers'">
+              <div class="master-icon">🏢</div>
+              <h3>Publishers</h3>
+              <p>Gestionar compañías desarrolladoras</p>
+              <span class="master-count">{{ publishers.length }} registrados</span>
+            </div>
+
+            <div class="master-card" (click)="currentView = 'consoles'">
+              <div class="master-icon">🎮</div>
+              <h3>Consolas</h3>
+              <p>Gestionar plataformas de juegos</p>
+              <span class="master-count">{{ consoles.length }} registradas</span>
+            </div>
+
+            <div class="master-card" (click)="currentView = 'genres'">
+              <div class="master-icon">🎯</div>
+              <h3>Géneros</h3>
+              <p>Gestionar categorías de juegos</p>
+              <span class="master-count">{{ genres.length }} registrados</span>
+            </div>
+
+            <div class="master-card" (click)="currentView = 'people'">
+              <div class="master-icon">👥</div>
+              <h3>Personas</h3>
+              <p>Gestionar usuarios del sistema</p>
+              <span class="master-count">{{ people.length }} registradas</span>
+            </div>
+          </div>
+
+          <div class="back-button">
+            <button class="btn btn-secondary" (click)="currentView = 'list'">⬅️ Volver</button>
+          </div>
+        </div>
+
+        <!-- Gestión de Publishers -->
+        <div *ngIf="currentView === 'publishers'" class="master-management">
+          <h2>🏢 Gestión de Publishers</h2>
+          <div class="master-actions">
+            <button class="btn btn-primary" (click)="showPublisherForm = true; editingPublisher = null; newPublisher = { id: 0, name: '' }">➕ Agregar Publisher</button>
+            <button class="btn btn-secondary" (click)="currentView = 'masters'">⬅️ Volver</button>
+          </div>
+
+          <div class="master-list">
+            <div *ngFor="let publisher of publishers" class="master-item">
+              <span>{{ publisher.name }}</span>
+              <div class="item-actions">
+                <button class="btn btn-edit" (click)="editPublisher(publisher)">✏️</button>
+                <button class="btn btn-delete" (click)="deletePublisher(publisher.id)">🗑️</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario Publisher -->
+          <div *ngIf="showPublisherForm" class="modal-overlay" (click)="showPublisherForm = false">
+            <div class="modal-content" (click)="$event.stopPropagation()">
+              <h3>{{ editingPublisher ? 'Editar Publisher' : 'Agregar Publisher' }}</h3>
+              <form (ngSubmit)="savePublisher()" class="form">
+                <div class="form-group">
+                  <label>Nombre:</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="newPublisher.name"
+                    name="publisherName"
+                    required
+                    class="form-input"
+                  >
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">💾 Guardar</button>
+                  <button type="button" class="btn btn-secondary" (click)="showPublisherForm = false">❌ Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gestión de Consolas -->
+        <div *ngIf="currentView === 'consoles'" class="master-management">
+          <h2>🎮 Gestión de Consolas</h2>
+          <div class="master-actions">
+            <button class="btn btn-primary" (click)="showConsoleForm = true; editingConsole = null; newConsole = { id: 0, name: '' }">➕ Agregar Consola</button>
+            <button class="btn btn-secondary" (click)="currentView = 'masters'">⬅️ Volver</button>
+          </div>
+
+          <div class="master-list">
+            <div *ngFor="let console of consoles" class="master-item">
+              <span>{{ console.name }}</span>
+              <div class="item-actions">
+                <button class="btn btn-edit" (click)="editConsole(console)">✏️</button>
+                <button class="btn btn-delete" (click)="deleteConsole(console.id)">🗑️</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario Consola -->
+          <div *ngIf="showConsoleForm" class="modal-overlay" (click)="showConsoleForm = false">
+            <div class="modal-content" (click)="$event.stopPropagation()">
+              <h3>{{ editingConsole ? 'Editar Consola' : 'Agregar Consola' }}</h3>
+              <form (ngSubmit)="saveConsole()" class="form">
+                <div class="form-group">
+                  <label>Nombre:</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="newConsole.name"
+                    name="consoleName"
+                    required
+                    class="form-input"
+                  >
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">💾 Guardar</button>
+                  <button type="button" class="btn btn-secondary" (click)="showConsoleForm = false">❌ Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gestión de Géneros -->
+        <div *ngIf="currentView === 'genres'" class="master-management">
+          <h2>🎯 Gestión de Géneros</h2>
+          <div class="master-actions">
+            <button class="btn btn-primary" (click)="showGenreForm = true; editingGenre = null; newGenre = { id: 0, name: '' }">➕ Agregar Género</button>
+            <button class="btn btn-secondary" (click)="currentView = 'masters'">⬅️ Volver</button>
+          </div>
+
+          <div class="master-list">
+            <div *ngFor="let genre of genres" class="master-item">
+              <span>{{ genre.name }}</span>
+              <div class="item-actions">
+                <button class="btn btn-edit" (click)="editGenre(genre)">✏️</button>
+                <button class="btn btn-delete" (click)="deleteGenre(genre.id)">🗑️</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario Género -->
+          <div *ngIf="showGenreForm" class="modal-overlay" (click)="showGenreForm = false">
+            <div class="modal-content" (click)="$event.stopPropagation()">
+              <h3>{{ editingGenre ? 'Editar Género' : 'Agregar Género' }}</h3>
+              <form (ngSubmit)="saveGenre()" class="form">
+                <div class="form-group">
+                  <label>Nombre:</label>
+                  <input
+                    type="text"
+                    [(ngModel)]="newGenre.name"
+                    name="genreName"
+                    required
+                    class="form-input"
+                  >
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">💾 Guardar</button>
+                  <button type="button" class="btn btn-secondary" (click)="showGenreForm = false">❌ Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gestión de Personas -->
+        <div *ngIf="currentView === 'people'" class="master-management">
+          <h2>👥 Gestión de Personas</h2>
+          <div class="master-actions">
+            <button class="btn btn-primary" (click)="showPeopleForm = true; editingPeople = null; newPeople = { id: 0, name: '', age: 0 }">➕ Agregar Persona</button>
+            <button class="btn btn-secondary" (click)="currentView = 'masters'">⬅️ Volver</button>
+          </div>
+
+          <div class="master-list">
+            <div *ngFor="let person of people" class="master-item">
+              <span>{{ person.name }} ({{ person.age }} años)</span>
+              <div class="item-actions">
+                <button class="btn btn-edit" (click)="editPeople(person)">✏️</button>
+                <button class="btn btn-delete" (click)="deletePeople(person.id)">🗑️</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Formulario Persona -->
+          <div *ngIf="showPeopleForm" class="modal-overlay" (click)="showPeopleForm = false">
+            <div class="modal-content" (click)="$event.stopPropagation()">
+              <h3>{{ editingPeople ? 'Editar Persona' : 'Agregar Persona' }}</h3>
+              <form (ngSubmit)="savePeople()" class="form">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Nombre:</label>
+                    <input
+                      type="text"
+                      [(ngModel)]="newPeople.name"
+                      name="peopleName"
+                      required
+                      class="form-input"
+                    >
+                  </div>
+                  <div class="form-group">
+                    <label>Edad:</label>
+                    <input
+                      type="number"
+                      [(ngModel)]="newPeople.age"
+                      name="peopleAge"
+                      required
+                      min="0"
+                      class="form-input"
+                    >
+                  </div>
+                </div>
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">💾 Guardar</button>
+                  <button type="button" class="btn btn-secondary" (click)="showPeopleForm = false">❌ Cancelar</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   `,
@@ -230,6 +474,7 @@ interface Game {
       display: flex;
       justify-content: center;
       gap: 15px;
+      flex-wrap: wrap;
     }
 
     .nav-btn {
@@ -255,7 +500,7 @@ interface Game {
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .game-list h2, .game-form h2 {
+    .game-list h2, .game-form h2, .masters-menu h2, .master-management h2 {
       color: #333;
       margin-bottom: 20px;
       text-align: center;
@@ -440,7 +685,7 @@ interface Game {
       color: #333;
     }
 
-    .form-input {
+    .form-input, .form-input select {
       width: 100%;
       padding: 12px;
       border: 2px solid #ddd;
@@ -449,7 +694,7 @@ interface Game {
       transition: border-color 0.3s ease;
     }
 
-    .form-input:focus {
+    .form-input:focus, .form-input select:focus {
       outline: none;
       border-color: #667eea;
     }
@@ -459,6 +704,131 @@ interface Game {
       gap: 15px;
       justify-content: center;
       margin-top: 30px;
+    }
+
+    .masters-menu {
+      text-align: center;
+    }
+
+    .masters-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .master-card {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      padding: 30px 20px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+    }
+
+    .master-card:hover {
+      border-color: #667eea;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .master-icon {
+      font-size: 3em;
+      margin-bottom: 15px;
+    }
+
+    .master-card h3 {
+      margin: 0 0 10px 0;
+      color: #333;
+    }
+
+    .master-card p {
+      color: #666;
+      margin: 0 0 15px 0;
+      font-size: 14px;
+    }
+
+    .master-count {
+      background: #667eea;
+      color: white;
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    .back-button {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .master-management {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .master-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .master-list {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .master-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      background: white;
+    }
+
+    .master-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 90%;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+      color: #333;
+      text-align: center;
     }
 
     @media (max-width: 768px) {
@@ -478,6 +848,15 @@ interface Game {
         flex-direction: column;
         align-items: center;
       }
+
+      .masters-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .master-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
     }
   `]
 })
@@ -485,9 +864,16 @@ export class GameFormComponent implements OnInit {
   games: Game[] = [];
   filteredGames: Game[] = [];
   searchTerm: string = '';
-  currentView: 'list' | 'add' = 'list';
+  currentView: 'list' | 'add' | 'masters' | 'publishers' | 'consoles' | 'genres' | 'people' = 'list';
   isEditing: boolean = false;
 
+  // Data for dropdowns
+  publishers: Publisher[] = [];
+  consoles: Console[] = [];
+  genres: Genre[] = [];
+  people: any[] = [];
+
+  // Form management
   game: Game = {
     id: 0,
     name: '',
@@ -499,20 +885,79 @@ export class GameFormComponent implements OnInit {
     price: 0
   };
 
+  // Master data forms
+  showPublisherForm: boolean = false;
+  showConsoleForm: boolean = false;
+  showGenreForm: boolean = false;
+  showPeopleForm: boolean = false;
+
+  editingPublisher: Publisher | null = null;
+  editingConsole: Console | null = null;
+  editingGenre: Genre | null = null;
+  editingPeople: any | null = null;
+
+  newPublisher: Publisher = { id: 0, name: '' };
+  newConsole: Console = { id: 0, name: '' };
+  newGenre: Genre = { id: 0, name: '' };
+  newPeople: any = { id: 0, name: '', age: 0 };
+
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
     this.loadGames();
+    this.loadMastersData();
   }
 
   loadGames() {
-    this.http.get<Game[]>('http://localhost:5143/api/game').subscribe(
+    this.http.get<Game[]>('https://localhost:7208/api/game').subscribe(
       (result) => {
         this.games = result;
         this.filteredGames = result;
       },
       (error) => {
         console.error('Error loading games:', error);
+      }
+    );
+  }
+
+  loadMastersData() {
+    // Load publishers
+    this.http.get<Publisher[]>('https://localhost:7208/api/publisher').subscribe(
+      (result) => {
+        this.publishers = result;
+      },
+      (error) => {
+        console.error('Error loading publishers:', error);
+      }
+    );
+
+    // Load consoles
+    this.http.get<Console[]>('https://localhost:7208/api/console').subscribe(
+      (result) => {
+        this.consoles = result;
+      },
+      (error) => {
+        console.error('Error loading consoles:', error);
+      }
+    );
+
+    // Load genres
+    this.http.get<Genre[]>('https://localhost:7208/api/genre').subscribe(
+      (result) => {
+        this.genres = result;
+      },
+      (error) => {
+        console.error('Error loading genres:', error);
+      }
+    );
+
+    // Load people
+    this.http.get<any[]>('https://localhost:7208/api/people').subscribe(
+      (result) => {
+        this.people = result;
+      },
+      (error) => {
+        console.error('Error loading people:', error);
       }
     );
   }
@@ -535,7 +980,7 @@ export class GameFormComponent implements OnInit {
 
   deleteGame(id: number) {
     if (confirm('¿Estás seguro de que quieres eliminar este juego?')) {
-      this.http.delete(`http://localhost:5143/api/game/${id}`).subscribe(
+      this.http.delete(`https://localhost:7208/api/game/${id}`).subscribe(
         () => {
           this.loadGames();
         },
@@ -548,7 +993,7 @@ export class GameFormComponent implements OnInit {
 
   onSubmit() {
     if (this.isEditing) {
-      this.http.put(`http://localhost:5143/api/game/${this.game.id}`, this.game).subscribe(
+      this.http.put(`https://localhost:7208/api/game/${this.game.id}`, this.game).subscribe(
         () => {
           this.loadGames();
           this.resetForm();
@@ -559,7 +1004,7 @@ export class GameFormComponent implements OnInit {
         }
       );
     } else {
-      this.http.post('http://localhost:5143/api/game', this.game).subscribe(
+      this.http.post('https://localhost:7208/api/game', this.game).subscribe(
         () => {
           this.loadGames();
           this.resetForm();
@@ -595,5 +1040,189 @@ export class GameFormComponent implements OnInit {
     if (!dateString) return '';
     const date = new Date(dateString);
     return date.getFullYear().toString();
+  }
+
+  // Publisher management
+  editPublisher(publisher: Publisher) {
+    this.editingPublisher = publisher;
+    this.newPublisher = { ...publisher };
+    this.showPublisherForm = true;
+  }
+
+  deletePublisher(id: number) {
+    if (confirm('¿Estás seguro de que quieres eliminar este publisher?')) {
+      this.http.delete(`https://localhost:7208/api/publisher/${id}`).subscribe(
+        () => {
+          this.loadMastersData();
+        },
+        (error) => {
+          console.error('Error deleting publisher:', error);
+        }
+      );
+    }
+  }
+
+  savePublisher() {
+    if (this.editingPublisher) {
+      this.http.put(`https://localhost:7208/api/publisher/${this.newPublisher.id}`, this.newPublisher).subscribe(
+        () => {
+          this.loadMastersData();
+          this.showPublisherForm = false;
+          this.editingPublisher = null;
+        },
+        (error) => {
+          console.error('Error updating publisher:', error);
+        }
+      );
+    } else {
+      this.http.post('https://localhost:7208/api/publisher', this.newPublisher).subscribe(
+        () => {
+          this.loadMastersData();
+          this.showPublisherForm = false;
+          this.newPublisher = { id: 0, name: '' };
+        },
+        (error) => {
+          console.error('Error adding publisher:', error);
+        }
+      );
+    }
+  }
+
+  // Console management
+  editConsole(console: Console) {
+    this.editingConsole = console;
+    this.newConsole = { ...console };
+    this.showConsoleForm = true;
+  }
+
+  deleteConsole(id: number) {
+    if (confirm('¿Estás seguro de que quieres eliminar esta consola?')) {
+      this.http.delete(`https://localhost:7208/api/console/${id}`).subscribe(
+        () => {
+          this.loadMastersData();
+        },
+        (error) => {
+          console.error('Error deleting console:', error);
+        }
+      );
+    }
+  }
+
+  saveConsole() {
+    if (this.editingConsole) {
+      this.http.put(`https://localhost:7208/api/console/${this.newConsole.id}`, this.newConsole).subscribe(
+        () => {
+          this.loadMastersData();
+          this.showConsoleForm = false;
+          this.editingConsole = null;
+        },
+        (error) => {
+          console.error('Error updating console:', error);
+        }
+      );
+    } else {
+      this.http.post('https://localhost:7208/api/console', this.newConsole).subscribe(
+        () => {
+          this.loadMastersData();
+          this.showConsoleForm = false;
+          this.newConsole = { id: 0, name: '' };
+        },
+        (error) => {
+          console.error('Error adding console:', error);
+        }
+      );
+    }
+  }
+
+  // Genre management
+  editGenre(genre: Genre) {
+    this.editingGenre = genre;
+    this.newGenre = { ...genre };
+    this.showGenreForm = true;
+  }
+
+  deleteGenre(id: number) {
+    if (confirm('¿Estás seguro de que quieres eliminar este género?')) {
+      this.http.delete(`https://localhost:7208/api/genre/${id}`).subscribe(
+        () => {
+          this.loadMastersData();
+        },
+        (error) => {
+          console.error('Error deleting genre:', error);
+        }
+      );
+    }
+  }
+
+  saveGenre() {
+    if (this.editingGenre) {
+      this.http.put(`https://localhost:7208/api/genre/${this.newGenre.id}`, this.newGenre).subscribe(
+        () => {
+          this.loadMastersData();
+          this.showGenreForm = false;
+          this.editingGenre = null;
+        },
+        (error) => {
+          console.error('Error updating genre:', error);
+        }
+      );
+    } else {
+      this.http.post('https://localhost:7208/api/genre', this.newGenre).subscribe(
+        () => {
+          this.loadMastersData();
+          this.showGenreForm = false;
+          this.newGenre = { id: 0, name: '' };
+        },
+        (error) => {
+          console.error('Error adding genre:', error);
+        }
+      );
+    }
+  }
+
+  // People management
+  editPeople(person: any) {
+    this.editingPeople = person;
+    this.newPeople = { ...person };
+    this.showPeopleForm = true;
+  }
+
+  deletePeople(id: number) {
+    if (confirm('¿Estás seguro de que quieres eliminar esta persona?')) {
+      this.http.delete(`https://localhost:7208/api/people/${id}`).subscribe(
+        () => {
+          this.loadMastersData();
+        },
+        (error) => {
+          console.error('Error deleting people:', error);
+        }
+      );
+    }
+  }
+
+  savePeople() {
+    if (this.editingPeople) {
+      this.http.put(`https://localhost:7208/api/people/${this.newPeople.id}`, this.newPeople).subscribe(
+        () => {
+          this.loadMastersData();
+          this.showPeopleForm = false;
+          this.editingPeople = null;
+        },
+        (error) => {
+          console.error('Error updating people:', error);
+        }
+      );
+    } else {
+      this.http.post('https://localhost:7208/api/people', this.newPeople).subscribe(
+        () => {
+          this.loadMastersData();
+          this.showPeopleForm = false;
+          this.newPeople = { id: 0, name: '', age: 0 };
+        },
+        (error) => {
+          console.error('Error adding people:', error);
+        }
+      );
+    }
   }
 }
