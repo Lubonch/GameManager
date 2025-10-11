@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36310.24 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "gamemanager.client", "gamemanager.client\gamemanager.client.esproj", "{DE6AFFC5-75D5-9F09-838F-20E0D0273112}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameManager.Server", "GameManager.Server\GameManager.Server.csproj", "{51B2FD00-BE0F-4175-BB65-6473D066EBBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DE6AFFC5-75D5-9F09-838F-20E0D0273112}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE6AFFC5-75D5-9F09-838F-20E0D0273112}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE6AFFC5-75D5-9F09-838F-20E0D0273112}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DE6AFFC5-75D5-9F09-838F-20E0D0273112}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE6AFFC5-75D5-9F09-838F-20E0D0273112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE6AFFC5-75D5-9F09-838F-20E0D0273112}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{51B2FD00-BE0F-4175-BB65-6473D066EBBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51B2FD00-BE0F-4175-BB65-6473D066EBBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51B2FD00-BE0F-4175-BB65-6473D066EBBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51B2FD00-BE0F-4175-BB65-6473D066EBBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BBEBAE33-6D6C-42CD-91C1-304831B8FA12}
+	EndGlobalSection
+EndGlobal
