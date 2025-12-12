@@ -32,3 +32,7 @@ Thumbs.db
 # Build
 *.exe
 *.dll
+
+# Glob CLI demo/test files
+glob-cli/demo-files/
+glob-cli/test-files/
