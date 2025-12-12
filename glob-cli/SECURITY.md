@@ -180,9 +180,9 @@ The tests verify:
 
 ## Timeline
 
-- **2025-12-12**: Vulnerability identified and fixed
-- **2025-12-12**: Security advisory published
-- **2025-12-12**: Fixed version released
+- **2024-12-12**: Vulnerability identified and fixed
+- **2024-12-12**: Security advisory published
+- **2024-12-12**: Fixed version released
 
 ## Credits
 

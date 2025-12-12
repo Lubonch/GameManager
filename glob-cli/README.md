@@ -58,6 +58,13 @@ const child = spawn(executable, args, {
 });
 ```
 
+### Limitations
+
+The fixed version uses a simple whitespace-based split for command parsing. This means:
+- Arguments with spaces must not be quoted (e.g., use `file.txt` not `"file with spaces.txt"`)
+- For production use with complex commands, consider using a proper shell argument parser library
+- The security benefit (no command injection) far outweighs this limitation
+
 ## Security Best Practices
 
 1. **Never use `shell: true` with user input**

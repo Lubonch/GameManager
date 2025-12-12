@@ -41,7 +41,9 @@ async function main() {
       
       for (const file of files) {
         // SECURITY FIX: Parse the command properly and avoid shell:true
-        // Split command into executable and arguments
+        // NOTE: This simple split doesn't handle quoted arguments with spaces
+        // (e.g., 'cat "file with spaces.txt"'). For production use, consider
+        // a proper shell argument parser or document this limitation.
         const cmdParts = options.cmd.split(/\s+/);
         const executable = cmdParts[0];
         
