@@ -1,0 +1,24 @@
+{
+  "name": "glob-cli-demo",
+  "version": "1.0.0",
+  "description": "Demo CLI tool with command injection vulnerability for educational purposes",
+  "main": "glob-cli.js",
+  "bin": {
+    "glob-cli": "./glob-cli.js"
+  },
+  "scripts": {
+    "test": "node test-glob-cli.js"
+  },
+  "keywords": [
+    "glob",
+    "cli",
+    "security",
+    "demo"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^12.0.0",
+    "glob": "^11.0.0"
+  }
+}
